@@ -1,0 +1,94 @@
+% !TeX root = ../main.tex
+
+\section{Homework \#8 [2025-10-28]}
+
+\begin{problem}[Read material Sec. 6.10 and finish the following exercise.]
+  Consider the Haldane model. The Bloch Hamiltonian is given by
+  \[
+    \mathcal H(\bm k) = \hat d_x(\bm k)\hat\sigma_x
+                      + \hat d_y(\bm k)\hat\sigma_y
+                      + \hat d_z(\bm k)\hat\sigma_z,
+  \]
+  where $\sigma_{x,y,z}$ are Pauli matrices, and the vector $\hat{\bm d}(\bm k)$
+  has components
+  \[
+    d_x(\bm k) = t_1 \sum_{i=1}^3 \cos(\bm k \cdot \bm a_i), \quad
+    d_y(\bm k) = t_1 \sum_{i=1}^3 \sin(\bm k \cdot \bm a_i), \quad
+    d_z(\bm k) = M - 2t_2\sin\phi \sum_{i=1}^3 \sin(\bm k \cdot \bm b_i),
+  \]
+  where $t_1$ is the real NN hopping amplitude, $t_2$ is the NNN hopping
+  amplitude with complex phase $\phi$, $M$ is the sublattice mass (Semenoff
+  mass), and $\bm a_i$, $\bm b_i$ are lattice vectors for NN and NNN hoppings,
+  respectively. The parameter space is spanned by $(M, \phi)$. We formally
+  obtain the Green's function as
+  \[
+    \mathbf G[\omega, k] = [\omega\identity - \mathcal H(k)]^{-1}
+  = \adj(\omega\identity - \mathcal H(k))
+    \det[\omega\identity - \mathcal H(k)]^{-1}
+  = \begin{psmallmatrix}
+      \frac{\omega + d_z} {\omega^2 - \mathbf d^2} & 
+      \frac{d_x + \iu d_y}{\omega^2 - \mathbf d^2}\\
+      \frac{d_x - \iu d_y}{\omega^2 - \mathbf d^2} &
+      \frac{\omega - d_z} {\omega^2 - \mathbf d^2}
+    \end{psmallmatrix}.
+  \]
+  Try to write the above Green function into self-energy form in the following
+  different ways.
+  \begin{enumext}
+    \item Focusing on a diagonal component, say
+    $\frac{\omega + d_z} {\omega^2 - \mathbf d^2}$,
+    write it into a self-energy form.
+  \end{enumext}
+  \begin{remark}
+    Consider $G^0 = (\omega - d_z)^{-1}$ and note
+    $\mathbf d^2 = d_x^2 + d_y^2 + d_z^2$.
+    Discuss the ``mass renormalization'' and ``lifetime''.
+    Discuss how to interpret them.
+  \end{remark}
+\end{problem}
+\begin{solution}
+  Since $\mathbf d^2 = d_x^2 + d_y^2 + d_z^2$, then, the denominator of the
+  diagonal element of the Green function can be expressed as
+  \[
+    \omega^2 - \mathbf d^2 = (\omega - d_z)(\omega + d_z) - (d_x^2 + d_y^2).
+  \]
+  So, the numerator and denominator can be divided by $(\omega + d_z)$. Yields,
+  \[
+    G_{11}(\omega, \mathbf k) = \frac{\omega + d_z}{\omega^2 - \mathbf d^2}
+  = \frac1{(\omega - d_z) - \frac{d_x^2 + d_y^2}{\omega + d_z}}.
+  \]
+  It can be written as the usual ``bare inverse minus self-energy'' form
+  \[
+    G_{11}(\omega, \mathbf k)
+  = \frac1{G_{11}^0(\omega, \mathbf k)^{-1} - \Sigma_{11}(\omega, \mathbf k)},
+  \]
+  where
+  \[
+    G_{11}^0(\omega, \mathbf k)^{-1} \equiv \omega - d_z(\mathbf k), \qq{and}
+    \Sigma_{11}(\omega, \mathbf k)
+  = \frac{d_x(\mathbf k)^2 + d_y(\mathbf k)^2}{\omega + d_z(\mathbf k)}.
+  \]
+  show that the off-diagonal kinetic terms $d_x$ and $d_y$ appear as an
+  energy-dependent self-energy for the diagonal component.
+  \paragraph{Physics interpretation}
+  This exact representation shows how inter-sublattice hopping $(d_x, d_y)$
+  modifies the bare propagator $(\omega - d_z)^{-1}$ through an energy-dependent
+  self-energy.
+  \begin{enumext}
+    \item \textbf{Mass Renormalization.}
+    The real part of $\Sigma$ shifts the quasiparticle pole from $d_z$ to the
+    band energy $|\mathbf d| = \sqrt{d_x^2 + d_y^2 + d_z^2}$.
+    Near $\omega \approx d_z$, we have the approximations
+    \[
+      \Sigma \approx \frac{d_x^2 + d_y^2}{2d_z}, \qq{and}
+      d_z^\text{eff} \approx d_z + \frac{d_x^2 + d_y^2}{2d_z},
+    \]
+    showing how inter-sublattice hopping renormalizes the sublattice mass.
+    \item \textbf{Lifetime.}
+    The imaginary part $-\Im\Sigma = \pi(d_x^2 + d_y^2)\delta(\omega + d_z)$
+    is non-zero only at $\omega = -d_z$. Since the band energies are
+    $\pm|\mathbf d|$, this causes no broadening at the quasiparticle poles,
+    which interprets that the clean, noninteracting system exhibits infinite
+    lifetime.
+  \end{enumext}
+\end{solution}

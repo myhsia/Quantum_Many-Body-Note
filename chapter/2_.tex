@@ -1,0 +1,156 @@
+% !TeX root = ../main.tex
+
+\chapter{Gaussian Integral}
+
+\section{Free Gaussian Integral}
+
+\[I = \int_{-\infty}^{+\infty} \d x \upe^{-x^2} = \sqrt\pi, ~ I^2 = \pi\]
+
+\subsection{Perturbation expansion of $\int_{-\infty}^{+\infty} \d x \upe^{-x^2-gx^4}$}
+
+\begin{equation}
+  Z(g) = \sum_{n = 0}^\infty \frac{(-g)^n}{n!} \int \d x x^{4n} \upe^{-x^2}
+  \label{1.1}
+\end{equation}
+\begin{equation}
+  \int x^{2m}\upe^{-x^2}\d x i
+\end{equation}
+\emph{Perturbation expansion} is actually divergent: $\lim_{n \to \infty} \ab|\frac{a_{n+1}}{a_n}| \Rightarrow \infty$
+
+The series $Z(g)$ has zero convergence radius.
+
+\section{Feynman Diagram}
+
+\begin{enumerate}
+  \item Vertice: $gx^4$
+  \begin{tikzpicture}[baseline = (o)]
+    \begin{feynhand}
+    \vertex (a) at (-1,1);
+    \vertex (b) at (1,-1);
+    \propag [plain] (a) to (b);
+    \vertex (c) at (1,1);
+    \vertex (d) at (-1,-1);
+    \propag [plain] (c) to (d);
+    \vertex [dot] (o) at (0,0) {};
+    \end{feynhand}
+  \end{tikzpicture}
+  \item Propagator: $<x$, $x > = \frac12$
+  \begin{enumext}[columns = 2]
+    \item $n = 1$:
+    \[
+      \begin{tikzpicture}[baseline = (o.base)]
+        \begin{feynhand}
+        \vertex (a) at (-1,1);
+        \vertex (b) at (1,-1);
+        \propag [plain] (a) to (b);
+        \vertex (c) at (1,1);
+        \vertex (d) at (-1,-1);
+        \propag [plain] (c) to (d);
+        \vertex [dot] (o) at (0,0) {};
+        \end{feynhand}
+      \end{tikzpicture}
+      \to
+      \begin{tikzpicture}[baseline = (o.base)]
+        \begin{feynhand}
+          \vertex [grayblob, above] (a) at (0,0) {};
+          \vertex [grayblob, below] (b) at (0,0) {};
+          \vertex [dot] (o) at (0,0) {};
+        \end{feynhand}
+      \end{tikzpicture}
+      +
+      \begin{tikzpicture}[baseline = (o.base)]
+        \begin{feynhand}
+          \vertex [grayblob, left] (a) at (0,0) {};
+          \vertex [grayblob, right] (b) at (0,0) {};
+          \vertex [dot] (o) at (0,0) {};
+        \end{feynhand}
+      \end{tikzpicture}
+    \]
+    \item $n = 2$:
+    \[
+      \begin{tikzpicture}[baseline = (o.base)]
+        \begin{feynhand}
+        \vertex (a) at (-1,1);
+        \vertex (b) at (1,-1);
+        \propag [plain] (a) to (b);
+        \vertex (c) at (1,1);
+        \vertex (d) at (-1,-1);
+        \propag [plain] (c) to (d);
+        \vertex [dot] (o) at (0,0) {};
+        \end{feynhand}
+      \end{tikzpicture}
+      +
+      \begin{tikzpicture}[baseline = (o.base)]
+        \begin{feynhand}
+        \vertex (a) at (-1,1);
+        \vertex (b) at (1,-1);
+        \propag [plain] (a) to (b);
+        \vertex (c) at (1,1);
+        \vertex (d) at (-1,-1);
+        \propag [plain] (c) to (d);
+        \vertex [dot] (o) at (0,0) {};
+        \end{feynhand}
+      \end{tikzpicture}
+      \to
+    \]
+  \end{enumext}
+\end{enumerate}
+Symmetry factor.
+
+\section{Finite $n$ still good for $g$-expansion}
+\begin{equation}
+  Z_\text{exact}(g) = \frac12\sqrt{\frac\pi g} \upe^{1/(8g)} K_{1/4}\ab(\frac{1}{8g})
+\end{equation}
+$K_{1/4}$ is modified Bessel function.
+
+\begin{tikzpicture}
+  \draw [->] (-.5,0) -- (3,0) node [below] {$N$};
+  \draw [->] (0,-.5) -- (0,3) node [left, align = right] {error\\$Z_n(g)$ -- $Z_\text{exact}(g)$};
+  \draw [dashed, rounded corners] (0,2.5) -- (1.5,.5) -- (3,2.5);
+\end{tikzpicture}
+
+Around $N = 13$: it starts going out.
+
+Kondo Problem: to 1 or 2 order.
+
+\noindent\rule{\linewidth}{1pt}
+
+From \eqref{1.1}, we have
+\begin{align}
+  Z(g)  & = \frac1{g^{1/4}} \int \d y e^{-y^4-y^2/g^{1/2}}\\
+        & = \frac1{g^{1/4}} \sum_{m = 0}^\infty \frac{(-1)^m}{m!} \frac{1}{g^{m/2}} \underset{\frac12\frac{\Gamma\left(\frac m2 + \frac14\right)}{g^{m/2} + 1/4}}{\underbrace{\int \d y y^{2m} e^{-y^4}}} \text{(Taylor Expansion)}\\
+  \ab|\frac{a_{m+1}}{a_m}| & \to \frac{1}{\sqrt{2g}} \cdot \frac1{\sqrt m} \to 0
+\end{align}
+Then, $Z(1/g)$ cmverges $(0,+\infty)$
+
+Large $y$, no matter how small $g$ is, $y^4$ term dominates.
+
+\section{Multi-variable Gaussian Integral}
+
+Just means we have found
+\begin{equation}
+  \int \d x_1 \d x_2 \ldots\d x_N \upe^{-[x][M][x]} =
+  \frac12\int \d y_1 \cdots\d y_N \upe^{-[y]u^\dagger Mu[y]}
+\end{equation}
+\begin{enumext}[columns = 2]
+  \item $[x] = (x_1,\ldots,x_N)$
+  \item $[M] = (M_{ij})$.
+\end{enumext}
+
+Diagonalise $M$: $[x] \to u[y]$, $M \to \pdiagmat[empty = {}]{\ddots, \ddots, \ddots}$,
+$u^\dagger Mu = \pdiagmat[empty = {}]{\ddots,\ddots,\ddots}$.
+
+\begin{framed}
+  Add interaction:
+  \begin{equation}
+    \int \d x_1 \ldots \d x_N \upe^{-\sum_{i = 1}^N x_i^4 g}
+  \end{equation}
+\end{framed}
+
+Consider strong coupling expansion:
+\begin{equation}
+  \int \d x_1 \cdots \d x_n \upe^{-\sum x_{i1}, x_{i2}, \ldots, x_{in} g_{12}^{34}}
+\end{equation}
+\begin{equation}
+  \int \d y_1 \cdots \d y_N = \upe^{-y^4}
+\end{equation}

@@ -1,0 +1,248 @@
+% !TeX root = ../main.tex
+
+\section{Homework \#4 [2025-09-23]}
+
+\begin{problem}[Exercise 5.1 of Coleman]
+  A particle with $S = \frac12$ is placed in a large magnetic field
+  $\bm B = (B_1 \cos \omega t, B_1 \sin \omega_t, B_0)$,
+  where $B_0 \gg B_1$.
+  \begin{enumext}[label = (\alph*)]
+    \item Treating the oscillating part of the Hamiltonian as the interaction,
+    write down the Schr\"odinger equation in the interaction representation.
+    \item Find $\hat U(t) = \mathcal T
+    \exp[-\iu \int_{-\infty}^t \mathcal H_\text{int}(t') \d t']$
+    by whatever method proves most convenient.
+    \item If the particle starts at time $t = 0$ in the state
+    $S_z = -\frac12$, what is the probability it is in this state at time $t$?
+  \end{enumext}
+\end{problem}
+\begin{solution}\leavevmode
+  \begin{enumext}[label = (\alph*)]
+    \item The Hamiltonian is  
+    \[
+      \hat H(t) = -\gamma \bm S \cdot \mathbf{B}(t)
+    = -\gamma B_0 S_z - \gamma B_1\ab(S_x \cos \omega t + S_y \sin \omega t),
+    \]  
+    with $\bm S = \frac\hbar2 \bm \sigma$.
+    Denote $\hat H_0 = -\gamma B_0 S_z$ and 
+    $\hat H_1(t) = -\gamma B_1\ab(S_x \cos \omega t + S_y \sin \omega t)$,
+    we obtain
+    \[
+      \hat H_1(t) = -\frac{\gamma B_1}{2}
+      \ab(S_+ \upe^{-\iu\omega t} + S_- \upe^{\iu\omega t}).
+    \]
+    where $S_\pm = S_x \pm i S_y$.
+    In the interaction picture, the interaction Hamiltonian is expressed as
+    \[
+      \hat H_{1,I}(t) = \upe^{\iu\hat H_0 t/\hbar}
+      \hat H_1(t) \upe^{-\iu\hat H_0 t/\hbar},
+    \]
+    with the BCH theory, using
+    $e^{\iu\hat H_0 t/\hbar} S_\pm \upe^{-\iu\hat H_0 t/\hbar}
+    = S_\pm \upe^{\mp \iu\omega_0 t}$, where $\omega_0 = \gamma B_0$,
+    we obtain  
+    \[
+      \hat H_{1,I}(t) = -\frac{\gamma B_1}{2}
+      \ab(S_+ \upe^{-\iu(\omega + \omega_0) t}
+        + S_- \upe^{\iu(\omega + \omega_0) t}).
+    \]
+    So, the Schr\"odinger equation in the interaction representation is
+    \[
+      \iu \hbar \odv{\ket|\psi_I(t)>}t = -\frac{\gamma B_1}{2}
+      \ab(S_+ \upe^{-\iu(\omega + \omega_0) t}
+        + S_- \upe^{\iu(\omega + \omega_0) t}) \ket|\psi_I(t)>,
+    \]
+    \item Let $\Delta = \omega + \omega_0$,
+    $\Omega = -\frac{\gamma B_1}{2}$. Then
+    \[
+      \hat H_{1,I}(t)
+    = \Omega\ab(S_+ \upe^{-\iu\Delta t} + S_- \upe^{\iu\Delta t})
+    = 2\Omega \upe^{-\iu\Delta t S_z} S_x \upe^{\iu\Delta t S_z}.
+    \]
+    The time-evolution operator is  
+    \[
+      \hat U(t) = \mathcal T
+      \exp\ab[ -\frac\iu\hbar \int_{-\infty}^t \hat H_{1,I}(t') \d t'].
+    \]
+    Using the identity for time-ordered exponentials of this form, we find  
+    \[
+      \hat U(t) = \upe^{-\iu\Delta t S_z} \exp\ab[
+                  -\frac\iu\hbar \ab(2\Omega S_x - \Delta S_z) t]
+                = \upe^{-\iu(\omega + \omega_0) t S_z}
+                  \exp\ab[\frac\iu\hbar t
+                      \ab(\gamma B_1 S_x + (\omega + \omega_0) S_z)].
+    \]
+    \item Assume in the interaction picture,
+    $\ket|\psi_I(0)> = \ket|\downarrow>$.
+    The amplitude to remain in $\ket|\downarrow>$ is
+    \[
+      A(t) = \braket<\downarrow|\hat U(t)|\downarrow>.
+    \]
+    Let $\Omega_R = \gamma B_1$, $\tilde{\Delta} = \omega + \omega_0$, and define the effective Hamiltonian according to (b)
+    \[
+      H_{\text{eff}} = -\Omega_R S_x - \tilde{\Delta} S_z,
+    \]
+    then  
+    \[
+      \hat U(t) = \upe^{-i\tilde{\Delta} t S_z} \upe^{-\iu H_{\text{eff}} t/\hbar}.
+    \]
+    Since $\ket|\downarrow>$ is an eigenstate of $S_z$ with eigenvalue $-\hbar/2$,  
+    \[
+    e^{-\iu\tilde{\Delta} t S_z} \ket|\downarrow> = \upe^{\iu\tilde{\Delta} t/2} \ket|\downarrow>,
+    \]  
+    so  
+    \[
+    A(t) = \upe^{\iu\tilde{\Delta} t/2}
+          \braket<\downarrow|\upe^{-\iu H_\text{eff} t/\hbar}|\downarrow>, \qq{and}
+      H_\text{eff} = -\frac12 \ab(\Omega_R \sigma_x + \tilde{\Delta} \sigma_z).
+    \]
+    The eigenvalues of $H_{\text{eff}}$ are $\pm \frac{\lambda}{2}$, where $\lambda = \sqrt{\Omega_R^2 + \tilde{\Delta}^2}$. So
+    \[
+      A(t) = \upe^{\iu\tilde{\Delta} t/2}
+              \ab[\cos\ab(\frac{\lambda t}{2})
+            - \iu\frac{\tilde{\Delta}}{\lambda} \sin\ab(\frac{\lambda t}{2})],
+    \]
+    and we obtain the survival probability is  
+    \[
+      P(t) = |A(t)|^2 
+    = 1 - \frac{(\gamma B_1)^2}{(\gamma B_1)^2 + (\omega + \gamma B_0)^2}
+      \sin^2\ab(\frac12 \sqrt{(\gamma B_1)^2 + (\omega + \gamma B_0)^2} t).
+    \]
+  \end{enumext}
+\end{solution}
+
+\newpage
+
+\begin{problem}[Exercise 3.1.1 of Nolting]
+  For the non-interacting electron gas ($H_e$) and
+  for the non-interacting phonon gas ($H_p$),
+  \[
+    H_e = \sum_{k,\sigma} \epsilon(k) a_{k\sigma}^\dagger a_{k\sigma}; \qq{and}
+    H_p = \sum_{q,r} \hbar \omega_r(q) \ab(b_{qr}^\dagger b_{qr} + \frac12),
+  \]
+  compute the time dependence of the annihilation operators
+  $a_{k\sigma}(t)$, $b_{qr}(t)$ in the Heisenberg picture.
+\end{problem}
+\begin{solution}
+  We just need to apply EOM to $a_{k\sigma}$ and $b_{qr}$.
+  \begin{enumext}[label = (\alph*)]
+    \item Annihilation operator $a_{k\sigma}(t)$\\ 
+    Calculate the commutator $[H_e, a_{k\sigma}]$ first
+    \begin{align*}
+      [H_e, a_{k\sigma}] & = \sum_{k',\sigma'}
+      \epsilon(k')[a_{k'\sigma'}^\dagger a_{k'\sigma'}, a_{k\sigma}]\\
+      & = \sum_{k',\sigma'}
+      \epsilon(k') \ab(a_{k'\sigma'}^\dagger \cancel{[a_{k'\sigma'}, a_{k\sigma}]}
+      + [a_{k'\sigma'}^\dagger, a_{k\sigma}] a_{k'\sigma'})
+      = -\epsilon(k) a_{k\sigma}.
+    \end{align*}
+    Then the EOM becomes
+    \[
+      \odv{a_{k\sigma}(t)}t = \frac\iu\hbar [-\epsilon(k) a_{k\sigma}(t)].
+    \]
+    It's trivial that
+    \[
+      a_{k\sigma}(t) = a_{k\sigma}(0) \upe^{-\iu\epsilon(k)t/\hbar}.
+    \]
+    \item Similarly, the commutator
+    \[
+      [H_p, b_{qr}] = -\hbar \omega_r(q) b_{qr},
+    \]
+    and the EOM becomes
+    \[
+      \odv{b_{qr}(t)}t = -\iu\omega_r(q) b_{qr}(t),
+    \]
+    and it's trivial that
+    \[
+      b_{qr}(t) = b_{qr}(0) \upe^{-\iu\omega_r(q)t}.
+    \]
+  \end{enumext}
+\end{solution}
+
+\begin{problem}
+  Consider an arbitrary \textbf{time-dependent} operator in Schr\"odinger picture
+  $\hat A_S(t)$ then re-express $\hat A_S(t)$ in Heisenberg picture
+  as $\hat A_H(t)$ and in Dirac (interaction) picture as $\hat A_D(t)$.
+  \begin{enumerate}
+    \item Show that $\braket<\psi_H|A_H(t)|\psi_H> \overset!=
+    \braket<\psi_S(t)|A_S|\psi_S(t)>$;
+    \item Derive the Heisenberg equation-of-motion for $\hat A_H(t)$
+    which should read;
+    \item Similarly, derive the equation-of-motion in Dirac (interaction)
+    picture for $\hat A_D(t)$.
+  \end{enumerate}
+\end{problem}
+\begin{solution}\leavevmode
+  \begin{enumext}[label = (\alph*)]
+    \item In Heisenberg picture, $\psi_H = \psi_S(0)$, so we have
+    \[
+      \braket<\psi_H|\hat A_H(t)|\psi_H>
+    = \braket<\psi_S(0)|\hat U^\dagger(t,0) \hat A_S(t) \hat U(t,0)|\psi_S(0)>.
+    \]
+    Since $\ket|\psi_S(t)> = \hat U(t,0) \ket|\psi_S(0)>$, so
+    \[
+      \braket<\psi_S(t)|\hat A_S(t)|\psi_S(t)>
+      = \braket<\psi_S(0)|\hat U^\dagger(t,0) \hat A_S(t) \hat U(t,0)|\psi_S(0)>,
+    \]
+    which is exactly $\braket<\psi_H|\hat A_H(t)|\psi_H>$. So
+    \[
+      \braket<\psi_H|A_H(t)|\psi_H> = \braket<\psi_S(t)|A_S|\psi_S(t)>.
+    \]
+    \item Since the operator in the Heisenberg picture can be expressed as
+    \[
+      \hat A_H = \hat U^\dagger(t,0) \hat A_S(t) \hat U(t,0),
+    \]
+    and its differentiate
+    \[
+      \odv*{\hat A_H(t)}t = \pdv{\hat U^\dagger}t \hat A_S(t) U
+    + \hat U^\dagger \pdv{\hat A_S(t)}t \hat U
+    + \hat U^\dagger \hat A_S(t) \pdv{\hat U}t.
+    \]
+    Substitute the equation that $\hat U$ satisfies under the Heisenberg picture
+    \[
+      \iu\hbar \pdv*{\hat U}t = \hat H_S \hat U,
+    \]
+    we have
+    \begin{align*}
+      \odv*{\hat A_H}t & = \ab(-\frac1{\iu\hbar} \hat U^\dagger H_S) A_SU
+    + \hat U^\dagger \pdv{\hat A_S(t)}t \hat U
+    + \hat U^\dagger \hat A_S \ab(\frac1{\iu\hbar} H_S \hat U)\\
+    & = \frac1{\iu\hbar} [-\hat U^\dagger H_S \hat A_S \hat U +
+      \hat U^\dagger \hat A_S H_S \hat U] + \hat U^\dagger \dot A_S \hat U,
+    \end{align*}
+    where $-\hat U^\dagger H_S \hat A_S \hat U = -H_H\hat A_H$,
+    $\hat U^\dagger \hat A_S H_S \hat U = \hat A_HH_H$,
+    and $\hat U^\dagger \dot A_S \hat U = \ab(\pdv{A_S}t)_H$.
+    So we obtain the Heisenberg equation of motion
+    \[
+      \odv*{A_H(t)}t = \frac1{\iu\hbar} [\hat A_H(t), H_H(t)] + \ab(\pdv{A_S}t)_H.
+    \]
+    \item Similarly from
+    \[
+      A_I(t) = \hat U_0^\dagger(t,0) \hat A_S(t) \hat U_0(t,0),
+    \]
+    we have the differentiate
+    \[
+      \odv{\hat A_I}t = \pdv{\hat U_0^\dagger}t A_S \hat U_0
+    + \hat U_0^\dagger \pdv{\hat A_S}t \hat U_0 + \hat U_0^\dagger \hat A_S \pdv{\hat U_0}t.
+    \]
+    Substitute the equation that $\hat U$ satisfies
+    \[
+      \iu\hbar \pdv{\hat U_0}t = H_{0,S} \hat U_0,
+    \]
+    we have
+    \[
+      \odv{\hat A_I}t = -\frac1{\iu\hbar}
+      \ab[\hat U_0^\dagger H_{0,s} \hat A_s \hat U_0
+      + \hat U_0^\dagger \dot{A_S} \hat U_0
+      + \frac1{\iu\hbar} \hat U_0^\dagger A_S H_{0,s} \hat U_0].
+    \]
+    Since $H_{0,I}(t) = \hat U_0^\dagger H_{0,S} \hat U_0$
+    and $\hat A_I = \hat U_0^\dagger \hat A_S \hat I_0$,
+    we obtain the Dirac picture equation of motion
+    \[
+      \odv*{A_I(t)}t = \frac1{\iu\hbar} [A_I(t), H_{0,I}(t)]
+    + \ab(\pdv{\hat A_S}t)_I.
+    \]
+  \end{enumext}
+\end{solution}

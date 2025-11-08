@@ -1,0 +1,233 @@
+% !TeX root = ../main.tex
+
+\section{Homework \#3 [2025-09-16]}
+
+\begin{problem}
+  Compute the Schrieffer-Wolff transformation for the
+  \emph{single impurity Anderson model (SIAM)}.
+  The single impurity Anderson Hamiltonian in second quantized notation
+  \[
+    \mathcal H = \sum_{k\sigma} \epsilon_k c_{k\sigma}^\dagger c_{k\sigma}
+  + \sum_\sigma \epsilon_d d_\sigma^\dagger d_\sigma
+  + \sum_{k\sigma} V_k
+    (c_{k\sigma}^\dagger d_\sigma + d_\sigma^\dagger c_{k\sigma})
+  + U n_{d\uparrow} n_{d\downarrow}.
+  \]
+  The Hamiltonian has one off-diagonal term, which we call $\mathcal H_v$
+  and diagonal terms, which together we call $\mathcal H_0$
+  \begin{align*}
+    \mathcal H_0 & = \sum_{k\sigma} \epsilon_k c_{k\sigma}^\dagger c_{k\sigma}
+                   + \sum_\sigma \epsilon_d d_\sigma^\dagger d_\sigma
+                   + U n_{d\uparrow} n_{d\downarrow},\\
+    \mathcal H_v & = \sum_{k\sigma} V_k
+    (c_{k\sigma}^\dagger d_\sigma + d_\sigma^\dagger c_{k\sigma}).
+  \end{align*}
+  The \textbf{generator} of SWT for SIAM is given by
+  \[
+    \mathcal S = \sum_{k\sigma} (A_k + B_k n_{d\bar\sigma}) V_k
+        (c_{k\sigma}^\dagger d_\sigma - d_\sigma^\dagger c_{k\sigma}),
+  \]
+  where $A_k$ and $B_k$ are coefficients to be determined.
+\begin{remark}
+  Denote
+  \begin{gather*}
+    \Psi_k^\dagger =
+    \begin{pmatrix}
+      c_{k\uparrow}^\dagger\\c_{k\downarrow}^\dagger
+    \end{pmatrix}\quad
+    \Psi_k =
+    \begin{pmatrix}
+      c_{k\uparrow}\\c_{k\downarrow}
+    \end{pmatrix}\quad
+    \Psi_d^\dagger =
+    \begin{pmatrix}
+      d_{\uparrow}^\dagger\\d_{\downarrow}^\dagger
+    \end{pmatrix}\quad
+    \Psi_d =
+    \begin{pmatrix}
+      d_{\uparrow}\\d_{\downarrow}
+    \end{pmatrix}\\
+  \begin{aligned}
+    4(\Psi_k^\dagger S \Psi_{k'}) (\Psi_d^\dagger S \Psi_d) &
+  = \Psi_k^\dagger \Psi_{k'} (\sigma.\sigma) \Psi_d^\dagger \Psi_d
+  = \Psi_k^\dagger \Psi_{k'} (\sigma.\sigma) \Psi_d^\dagger \Psi_d\\
+& = (\Psi_k^\dagger \sigma_z \Psi_k) (\Psi_d^\dagger \sigma_z \Psi_d)
+  + \frac12\ab[
+    (\Psi_k^\dagger \sigma^+ \Psi_k) (\psi_d^\dagger \sigma^- \Psi_d) +
+    (\Psi_k^\dagger \sigma^- \Psi_k) (\psi_d^\dagger \sigma^+ \Psi_d)],
+  \end{aligned}
+  \end{gather*}
+  then compute and identify each of these three terms in the last line.
+  You will be getting other extra terms besides the Kondo exchange term.
+\end{remark}
+\end{problem}
+\begin{solution}
+  Apply Schrieffer-Wolff transformation to $\mathcal H$ to second order.
+  Using BCH, we have
+  \[
+    \tilde{\mathcal H} = \upe^{\hat{\mathcal S}} \mathcal H \upe^{-\mathcal S}
+  = \mathcal H_0 + \mathcal H_v
+  + [\mathcal S, \mathcal H_0] + [\mathcal S, \mathcal H_v]
+  + \frac12([\mathcal S, [\mathcal S, \mathcal H_0]]
+  + [\mathcal S, [\mathcal S, \mathcal H_v]]) + \ldots
+  \]
+  To ensure the Hamiltonian is diagonal to first order in $\mathcal H_v$,
+  the generator $\mathcal S$ should satisfy
+  \[
+    \mathcal H_v + [\mathcal S, \mathcal H_0] = 0, \quad
+    [\mathcal S, \mathcal H_0] = -\mathcal H_v.
+  \]
+  Since $S \sim \mathcal H_v \sim \mathcal O(V^1)$,
+  the transformed Hamiltonian is
+  \[
+    \tilde{\mathcal H} = \mathcal H_0 + [\mathcal S, \mathcal H_v]
+  + \frac12[\mathcal S, -\mathcal H_v] + \mathcal O(V^3)
+  = \mathcal H_0 + \frac12[\mathcal S, \mathcal H_v] + \mathcal O(V^3).
+  \]
+  Since the \textbf{generator} of SWT for SIAM is given by
+  \[
+    \mathcal S = \sum_{k\sigma} (A_k + B_k n_{d\bar\sigma}) V_k
+        (c_{k\sigma}^\dagger d_\sigma - d_\sigma^\dagger c_{k\sigma}).
+  \]
+  Next, we need to use the identity
+  $[\mathcal S, \mathcal H_0] = -\mathcal H_v$
+  to deterimine the coefficients $A_k$ and $B_k$
+  for the generator $\mathcal S$,
+  and then calculate the commutator $[\mathcal S, \mathcal H_v]$.
+  \newpage
+  \begin{enumerate}
+    \item Determine $A_k$ and $B_k$.\\
+    We need to calculate $[\mathcal S, \mathcal H_0]$ first.
+    To distinguish the variables to be summed in the commutator,
+    we need to express $\mathcal H_0$ as
+    \[
+      \mathcal H_0 = \underbrace{
+        \sum_{k'\sigma'} \epsilon_{k'} c_{k'\sigma'}^\dagger c_{k'\sigma'}}_
+        \text{Bath term} + \underbrace{
+      \sum_{\sigma'} \epsilon_d d_{\sigma'}^\dagger d_{\sigma'}}_
+        \text{Impurity level term}
+    + \underbrace{\vphantom{\sum_{\sigma'}}U n_{d\uparrow} n_{d\downarrow}}_\text{Interaction term},
+    \]
+    then calculate every term accordingly.
+    \begin{enumext}[label = \roman*.]
+      \item Bath term.\\
+      The main part of the commutator is
+      \[
+        [c_{k\sigma}^\dagger d_\sigma - d_\sigma^\dagger c_{k\sigma},
+         c_{k'\sigma'}^\dagger c_{k'\sigma'}] =
+        [c_{k\sigma}^\dagger d_\sigma, c_{k'\sigma'}^\dagger c_{k'\sigma'}] -
+        [d_\sigma^\dagger c_{k\sigma}, c_{k'\sigma'}^\dagger c_{k'\sigma'}],
+      \]
+      and it can be expanded with the identity of the commutator
+      \[
+        \cancel{
+          c_{k\sigma}^\dagger [d_\sigma, c_{k'\sigma'}^\dagger c_{k'\sigma'}]}
+        + [c_{k\sigma}^\dagger, c_{k'\sigma'}^\dagger c_{k'\sigma'}] d_\sigma
+        - d_\sigma [c_{k\sigma}, c_{k'\sigma'}^\dagger c_{k'\sigma'}] -
+        \cancel{ [d_\sigma, c_{k'\sigma'}^\dagger c_{k'\sigma'}] c_{k\sigma}},
+      \]
+      where $c$ and $d$ are commutate.
+      Since they are fermions, we need to generate anticommutators
+      from the four terms above to obtain the $\delta$-terms
+      \begin{enumext}[label = $\star$]
+        \item $[c_{k\sigma}^\dagger, c_{k'\sigma'}^\dagger c_{k'\sigma'}] d_\sigma
+        = \ab(\cancel{\{c_{k\sigma}^\dagger, c_{k'\sigma'}^\dagger\}}
+          c_{k'\sigma'}
+        - c_{k'\sigma'}^\dagger\{c_{k\sigma}^\dagger, c_{k'\sigma'}\}) d_\sigma
+        = -\delta_{kk'} \delta_{\sigma\sigma'} c_{k'\sigma'}^\dagger d_\sigma$
+        \item $d_\sigma [c_{k\sigma}, c_{k'\sigma'}^\dagger c_{k'\sigma'}]
+        = d_\sigma\ab(\{c_{k\sigma}, c_{k'\sigma'}^\dagger\} c_{k'\sigma'}
+        - c_{k'\sigma'}^\dagger \cancel{\{c_{k\sigma} c_{k'\sigma'}\}})
+        = \delta_{kk'} \delta_{\alpha\alpha'} d_\sigma c_{k'\sigma'}$
+      \end{enumext}
+      After summing, the Bath term will give a factor of
+      \[
+        \sum_{k'\sigma'} \epsilon_{k'} \ab(
+          -\delta_{kk'} \delta_{\sigma\sigma'} c_{k'\sigma'}^\dagger d_\sigma
+          -\delta_{kk'} \delta_{\alpha\alpha'} d_\sigma c_{k'\sigma'}
+        ) = -\epsilon_k \ab(c_{k\sigma}^\dagger d_\sigma + d_\sigma^\dagger c_{k\sigma}).
+      \]
+      \item Impurity level term\\
+      Since $[n_{d\bar\sigma}, d_\sigma] = 0$,
+      we do not consider the $B_k n_{d\bar\sigma}$ factor.
+      Similarly, the commutator with $d_{\sigma'}^\dagger d_{\sigma'}$
+      \[
+        [c_{k\sigma}^\dagger d_\sigma - d_\sigma^\dagger c_{k\sigma},
+         d_{\sigma'}^\dagger d_{\sigma'}]
+      = \delta_{\sigma\sigma'}
+        \ab(c_{k\sigma}^\dagger d_{\sigma'} + d_{\sigma'}^\dagger c_{k\sigma}),
+      \]
+      and summing over $\sigma'$ gives the factor
+      \[
+        \epsilon_d \ab(c_{k\sigma}^\dagger d_\sigma
+      + d_{\sigma^\dagger} c_{k\sigma}).
+      \]
+      \item Interaction term\\
+      It is trivial that the commutator depends on the spin.
+      \begin{enumext}[label = $\star$]
+        \item $\sigma = \uparrow$, $n_{d\bar\sigma} = n_{d\downarrow}$,
+        the commutator gives a factor of
+        \[
+          [n_{d\downarrow}(c_{k\uparrow}^\dagger d_\uparrow -
+           d_\uparrow^\dagger c_{k\uparrow}), n_{d\uparrow} n_{d\downarrow}]
+        = c_{k\uparrow}^\dagger d_\uparrow n_{d\downarrow}
+        - (-d_\uparrow^\dagger n_{d\downarrow} c_{k\uparrow})
+        = n_{d\downarrow} \ab(c_{k\uparrow}^\dagger d_\uparrow
+        + d_\uparrow^\dagger c_{k\uparrow}).
+        \]
+        \item $\sigma = \uparrow$, by symmetry, just reverse
+        the sign of $\sigma$, we get a factor
+        \[
+          n_{d\uparrow} \ab(c_{k\downarrow}^\dagger d_\downarrow
+        + d_\downarrow^\dagger c_{k\downarrow}).
+        \]
+      \end{enumext}
+      To summarize, the interaction term will bring the factor
+      \[
+        [c_{k\sigma}^\dagger d_\sigma - d_\sigma^\dagger c_{k\sigma},
+         U n_{d\uparrow} n_{d\downarrow}] = U n_{d\bar\sigma}
+         \ab(c_{k\sigma}^\dagger d_\sigma + d_\sigma^\dagger c_{k\sigma}).
+      \]
+    \end{enumext}
+    \pagebreak
+    Now, we arrive at the result of the commutator $[\mathcal S, \mathcal H_0]$
+    \[
+      [\mathcal S, \mathcal H_0] = \sum_{k\sigma}
+      (A_k + B_k n_{d\bar\sigma}) V_k (-\epsilon_k + \epsilon_d + Un_{d\bar\sigma})
+      (c_{k\sigma}^\dagger d_\sigma + d_\sigma^\dagger c_{k\sigma})
+    = -\mathcal H_v.
+    \]
+    Compare the expression of $\mathcal H_v$, we have
+    \[
+      (A_k + B_k n_{d\bar\sigma}) (-\epsilon_k + \epsilon_d + Un_{d\bar\sigma}) = -1.
+    \]
+    Since the sign of $\sigma$ can be $\uparrow$ or $\downarrow$,
+    let $n_{d\bar\sigma} = 0$ and $1$, we obtain the coefficients
+    \[
+      A_k = \frac1{\epsilon_k - \epsilon_d},\qq{and}
+      B_k = \frac U{(\epsilon_k - \epsilon_d) (\epsilon_k - \epsilon_d - U)}.
+    \]
+    \item Second term of the transformed Hamiltonian\\
+    Then, we need to get $[\mathcal S, \mathcal H_v]$,
+    the second term of $\tilde{\mathcal H}$.
+    Similar to the method of obtaining $[\mathcal S, \mathcal H_0]$,
+    the result is
+    \begin{multline*}
+        [\mathcal S, \mathcal H_v]
+    = \sum_{k\sigma} V_k^2
+      (A_k d_\sigma^\dagger d_\sigma + B_k n_{d\bar\sigma} d_\sigma^\dagger + \text{H.c.}) \\
+    + \sum_{kk'\sigma} V_k V_{k'}
+      (A_k c_{k\sigma}^\dagger C_{k'\sigma'}
+    + B_k d_{\bar\sigma}^\dagger c_{k'\bar\sigma} c_{k\sigma}^\dagger d_\sigma
+    + B_k c_{k'\bar\sigma}^\dagger d_{\bar\sigma} c_{k\sigma}^\dagger d_\sigma
+    + B_k c_{k\sigma}^\dagger c_{k'\sigma'} n_{d\bar\sigma} + \text{H.c.}),
+    \end{multline*}
+    where $A_k$ and $B_k$ have been already deterimined.
+  \end{enumerate}
+  Eventually, we finished the SWT for SIAM
+  \[
+    \tilde{\mathcal H} =
+    \mathcal H_0 + \frac12[\mathcal S, \mathcal H_v] + \mathcal O(V^3),
+  \]
+  where the corresponding terms/coefficients are obtained in the previous step.
+\end{solution}

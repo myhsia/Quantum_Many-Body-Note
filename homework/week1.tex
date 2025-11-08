@@ -1,0 +1,254 @@
+% !TeX root = ../main.tex
+
+\section{Homework \#1 [2025-09-02]}
+
+\begin{problem}
+  Prove the following equations
+  \begin{gather*}
+    [\hat d_n, \hat d_m^\dagger]_{\mp} = \braket<n|m> = \delta_{nm},\\
+    \hat d_n\ket|n> = \ket|0>.
+  \end{gather*}
+\end{problem}
+\begin{solution}
+\begin{proof}
+  Reviewing the definitions of $\hat d_n^\dagger$ and $\hat d_n$
+  \[
+    \hat d_n = \int \d x \varphi_n^*(x) \hat\psi(x),\qq{and}
+    \hat d_n^\dagger = \int \d x \varphi_n(x) \hat\psi^\dagger(x),
+  \]
+  then substitute them into the (anti)commutator
+  \begin{align*}
+    [\hat d_n, \hat d_m^\dagger]_{\mp} & =
+    \ab(\int \d x \varphi_n^*(x) \hat\psi(x))^\dagger
+    \ab(\int \d x' \varphi_m(x') \hat\psi(x')) \mp
+    \ab(\int \d x' \varphi_m(x') \hat\psi(x'))
+    \ab(\int \d x \varphi_n^*(x) \hat\psi(x))^\dagger\\
+& = \int \d x \int \d x' \varphi_n^*(x) \varphi_m(x')
+    [\hat\psi^\dagger(x) \hat\psi(x') \mp \hat\psi(x') \hat\psi^\dagger(x)]\\
+& = \int \d x \int \d x' \varphi_n^*(x) \varphi_m(x')
+    [\hat\psi^\dagger(x), \hat\psi(x')]_\mp.
+  \end{align*}
+  Since the (anti)commutator of the field operator is
+  \[
+    [\hat\psi^\dagger(x), \hat\psi(x')]_\mp = \delta(x - x'),
+  \]
+  integrate over $x'$, and then recognize the inner product expression.
+  Since the functions $\varphi_n$, $\varphi_m$ are orthonormal, we arrive at
+  \[
+    [\hat d_n, \hat d_m^\dagger]_{\mp}
+  = \int \d x \mathemph{\int \d x'} \varphi_n^*(x)
+              \mathemph[\int]{\varphi_m(x') \delta(x - x')}
+  = \int \d x \varphi_n^*(x) \varphi_m(x)
+  = \braket<\varphi_n|\varphi_m> = \delta_{nm}.
+  \]
+  The integration above used the \emph{Dirac measure} of the $\delta$-function.
+\end{proof}
+\begin{proof}
+  The one-particle ket $\ket|n>$ can be expanded in the position-spin kets
+  using the identity
+  \[
+    \ket|n> = \int \d x \ket|x> \braket<x|n> = \int \d x \varphi_n(x) \ket|x>
+  = \int \d x \varphi_n(x) \hat\psi^\dagger(x) \ket|0>.
+  \]
+  Since $\hat\psi(x) \ket|0> = 0$,
+  that is \emph{the annihilation operator kills the vacuum},
+  then we have
+  \[
+    \hat\psi(x) \hat\psi^\dagger(x') \ket|0>
+  = [\hat\psi(x), \hat\psi^\dagger(x')]_\mp\ket|0>
+  = \delta(x - x') \ket|0>,
+  \]
+  then substitute the relation above, the expression of $\hat d_n$
+  and the expansion of $\ket|n>$ into $\hat d_n \ket|n>$
+  \begin{align*}
+    \hat d_n \ket|n> & =
+    \int \d x \varphi_n^*(x) \hat\psi(x)
+    \int \d x' \varphi_n(x') \hat\psi^\dagger(x') \ket|0>
+  = \int \d x \mathemph{\int \d x'} \varphi_n^*(x)
+              \mathemph[\int]{\varphi_n(x') \delta(x - x')} \ket|0>\\
+& = \int \d x \varphi_n^*(x) \varphi_n(x) \ket|0>
+  = \int \d x |\varphi_n(x)|^2 \ket|0> = \ket|0>.
+  \end{align*}
+  The integration above used \emph{the sifting property of the $\delta$-function},
+  and the normalization of $\varphi_n(x)$.
+\end{proof}
+\end{solution}
+
+\begin{problem}
+  Prove the inverse relations (3.6.4)%
+  \footnote{\citet[see][eq. (1.60)]{4_stefanucci2013nonequilibrium}}
+  i.e., the inverse relations of
+  \[
+    \hat\psi(\bm x) = \sum_n \varphi_n(\bm x)\hat d_n, \qq{and}
+    \hat\psi^\dagger(\bm x) = \sum_n \varphi_n^*(\bm x)\hat d_n^\dagger,
+  \]
+  meaning expressing $\hat d_n$ and $\hat d_n^\dagger$ by $\hat\psi(x)$.
+\end{problem}
+\begin{solution}
+  To express $\hat d_n$ (and $\hat d_n^\dagger$),
+  we can use the orthogonality
+  $\int \d x \varphi_m^*(\bm x) \varphi_n(\bm x) = \delta_{mn}$
+  to eliminate itself on the right side.
+  Left multiply both sides of $\varphi_m^*(\bm x)$ by $\hat \psi(\bm x)$,
+  and then integrate over $x$
+  \[
+    \int \d x \varphi_m^*(\bm x) \hat\psi(\bm x)
+  = \int \d x \varphi_m^*(\bm x) \ab(\sum_n \varphi_n(\bm x)\hat d_n).
+  \]
+  Since the integral and sum actions are exchangeable in this case,
+  then we arrive at
+  \[
+    \int \d x \varphi_m^*(\bm x) \hat\psi(\bm x)
+  = \sum_n \hat d_n \int \d x \varphi_m^*(\bm x) \varphi_n(\bm x)
+  = \sum_n \delta_{mn} \hat d_n = \hat d_m.
+  \]
+  Similarly, for the creation operator $\hat d_n^\dagger$,
+  repeat the actions above to $\hat\psi(\bm x)^\dagger$ as following
+  \[
+    \int \d x \varphi_m(\bm x) \hat\psi(\bm x)^\dagger
+  = \sum_n \hat d_n^\dagger \int \d x \varphi_m(\bm x) \varphi_n(\bm x)^*
+  = \sum_n \delta_{mn} \hat d_n^\dagger = \hat d_m^\dagger.
+  \]
+  To summarize,
+  the inverse relations of $\hat \psi(\bm x)$ and $\hat \psi(\bm x)^\dagger$
+  for mode $n$ are given by
+  \[
+    \hat d_n = \int \d x \varphi_n^*(\bm x) \hat\psi(\bm x), \qq{and}
+    \hat d_n^\dagger = \int \d x \varphi_n(\bm x) \hat\psi(\bm x)^\dagger.
+  \]
+\end{solution}
+
+\begin{problem}
+  Let $\ket|n> = \ket|\bm p\tau>$ be a momentum-spin ket so that
+  $\braket<\bm x|\bm p\tau> = \upe^{\iu\bm p\cdot r} \delta_{\sigma\tau}$.%
+  \footnote{\citep[see][eq. (1.10)]{4_stefanucci2013nonequilibrium}}
+  \[
+    \braket<\bm x|\bm p\sigma'> = \delta_{\sigma\sigma'}\braket<\bm r|\bm p>
+    \qq{with}
+    \braket<\bm r|\bm p> = \upe^{\iu\bm p \cdot \bm r}.
+  \]
+  Show that the (anti)commutation relation in (3.6.2) then reads
+  \[
+    [\hat d_{\bm p\tau}, \hat d_{\bm p',\tau'}^\dagger]_\mp
+  = (2\pi)^3 \delta^3(\bm p - \bm p') \delta_{\tau\tau'},
+  \]
+  and that the expansion (3.6.4) of the field operators in terms of the $\hat d$-operators is
+  \[
+    \hat\psi(\bm x) = \int \frac{\d^3\bm p}{(2\pi)^3}
+      \upe^{\iu\bm p\cdot\bm r} \hat d_{\bm p\sigma}, \qq{and}
+    \hat\psi^\dagger(\bm x) = \int \frac{\d^3\bm p}{(2\pi)^3}
+      \upe^{-\iu\bm p \cdot\bm r} \hat d_{\bm p\sigma}^\dagger.
+  \]
+\end{problem}
+\begin{solution}
+\begin{proof}
+  When $\ket|n> = \ket|\bm p\tau>$,
+  $\varphi_n(x)$ becomes $\varphi_{\bm p\tau} (\bm x) =
+  \braket<\bm x|\bm p\tau> = \delta_{\sigma\tau} \upe^{\iu\bm p\cdot\bm r}$.
+  Using the combined coordinate $\bm x \equiv (\bm r, \sigma)$ that
+  provides a complete description of a particle's state:
+  continuous spatial position $\bm r$ and
+  discrete spin projection quantum number $\sigma$.
+  The expression of the operator $\hat d_{\bm p\tau}$ in terms of
+  $\hat\psi(\bm r, \sigma)$ should be
+  \emph{not only integrate over $\bm r$, but also sum over spin $\sigma$}.
+  That is
+  \begin{align*}
+    \hat d_{\bm p\tau} &
+  = \int \d^3 \bm x
+    \varphi_{\bm p\tau}^*(\bm x)  \hat\psi(\bm x)
+  = \int \d^3 \bm r \sum_\sigma \delta_{\sigma\tau}
+    \upe^{-\iu \bm p\cdot\bm r} \hat\psi(\bm r,\sigma)
+  = \int \d^3 \bm r \upe^{-\iu \bm p\cdot\bm r} \hat\psi(\bm r,\tau),\\
+    \hat d_{\bm p\tau}^\dagger &
+  = \int \d^3 \bm x
+    \varphi_{\bm p\tau}(\bm x)  \hat\psi(\bm x)^\dagger
+  = \int \d^3 \bm r \sum_\sigma \delta_{\sigma\tau}
+    \upe^{\iu \bm p\cdot\bm r} \hat\psi(\bm r,\sigma)^\dagger
+  = \int \d^3 \bm r \upe^{\iu \bm p\cdot\bm r} \hat\psi(\bm r,\tau)^\dagger.
+  \end{align*}
+  Promoting $[\hat\psi^\dagger(x), \hat\psi(x')]_\mp = \delta(x - x')$ to
+  ``4D'' (means 3D coordinate $r$ + 1D spin $\sigma$ (or the variable $\tau$))
+  \[
+    [\hat\psi^\dagger(\bm x), \hat\psi(\bm x')]_\mp
+  = \delta^3(\bm r - \bm r') \delta_{\tau\tau'},
+  \]
+  we get a ``4D'' $\delta$-result.
+  Then substitute $\hat d_{\bm p\tau}$ and $\hat d_{\bm p\tau}^\dagger$
+  into the commutator
+  \begin{align*}
+    [\hat d_{\bm p\tau}, \hat d_{\bm p',\tau'}^\dagger]_\mp
+& = \int \d^3\bm r \int \d^3\bm r'
+    \upe^{-\iu (\bm p\cdot\bm r-\bm p'\cdot\bm r')}
+    [\hat\psi(\bm r,\tau), \hat\psi(\bm r',\tau')^\dagger]_\mp\\
+& = \int \d^3\bm r \int \d^3\bm r'
+    \upe^{-\iu (\bm p\cdot\bm r-\bm p'\cdot\bm r')}
+    \delta^3(\bm r - \bm r') \delta_{\tau\tau'}\\
+& = \int \d^3\bm r \upe^{-\iu (\bm p\cdot\bm r-\bm p'\cdot\bm r)}
+    \delta_{\tau\tau'}
+  = (2\pi)^3 \delta^3(\bm p - \bm p') \delta_{\tau\tau'}.
+  \end{align*}
+  The last line of the above derivation used
+  the normalization of the plane waves, with a factor of $(2\pi)^3$.
+\end{proof}
+\begin{proof}
+  Similar to Problem 1.1,
+  we need to left multiply both sides by $\varphi_{p\tau}(\bm x)$,
+  sum over $\tau$, and integrate over $\bm p$ to $\hat d_{\bm p\tau}(\bm x')$
+  (In order to arrive at $\hat\psi(\bm x)$,
+  a normalization factor $1/{(2\pi)^3}$ is applied)
+  \[
+    \sum_\tau \int \frac{\d^3\bm p}{(2\pi)^3}
+      \varphi_{p\tau}(\bm x) \hat d_{\bm p\sigma}
+  = \mathemph{\sum_\tau \int \frac{\d^3\bm p}{(2\pi)^3}
+      \varphi_{p\tau}(\bm x)}
+    \int \d^3 \bm x'
+      \mathemph[\sum_\tau \frac{\d^3}{()^3}]
+        {\varphi_{\bm p\tau}^*(\bm x')} \hat\psi(\bm x').
+  \]
+  \begin{framed}
+    We arrive at the identity of $\varphi_{p\tau}(\bm x)$.
+    Now, calculate it.
+    \begin{align*}
+      \text{Identity} & = \sum_\tau \int \frac{\d^3\bm p}{(2\pi)^3}
+        \varphi_{p\tau}(\bm x) \varphi_{\bm p\tau}^*(\bm x')
+    = \sum_\tau \int \frac{\d^3\bm p}{(2\pi)^3}
+      \ab\big(\upe^{\iu\bm p\cdot\bm r} \delta_{\sigma\tau})
+      \ab\big(\upe^{-\iu\bm p\cdot\bm r'} \delta_{\sigma'\tau})\\
+  & = \sum_\tau \int \frac{\d^3\bm p}{(2\pi)^3}
+      \upe^{\iu\bm p\cdot(\bm r-\bm r')} \delta_{\sigma\tau}\delta_{\sigma'\tau}
+    = \int \frac{\d^3\bm p}{(2\pi)^3}
+      \upe^{\iu\bm p\cdot(\bm r-\bm r')} \delta_{\sigma\sigma'}
+    = \delta^3(\bm r - \bm r') \delta_{\sigma\sigma'},
+    \end{align*}
+    When handling $\delta_{\sigma\tau}\delta_{\sigma'\tau}$,
+    we can consider choosing all of the $\tau$s (points)
+    that equal to $\sigma$ and $\sigma'$ at the same time,
+    it is equal to find filtering all the points on the axis that satisfy
+    $\sigma = \sigma'$, that is
+    $\sum_\tau \delta_{\sigma\tau} \delta_{\sigma'\tau} = \delta_{\sigma\sigma'}$.
+  \end{framed}
+  Now, return to the main topic.
+  Substituting the identity and expand $\int \d^3 \bm x$
+  \[
+    \sum_\tau \int \frac{\d^3\bm p}{(2\pi)^3}
+      \varphi_{p\tau}(\bm x) \hat d_{\bm p\sigma}
+  = \sum_{\sigma'} \int \d^3 \bm r' \hat\psi(\bm r', \sigma')
+    \delta^3(\bm r' - \bm r) \delta_{\sigma\sigma'}
+  = \hat\psi(\bm r,\sigma) = \hat\psi(\bm x),
+  \]
+  that is
+  \[
+    \hat\psi(\bm x) = \sum_\tau \int \frac{\d^3\bm p}{(2\pi)^3}
+      (\upe^{\iu\bm p\cdot\bm r} \delta_{\sigma\tau}) \hat d_{\bm p\sigma}
+  = \int \frac{\d^3\bm p}{(2\pi)^3} \upe^{\iu\bm p\cdot\bm r} \hat d_{p\sigma}.
+  \]
+  Similarly to $\hat\psi^\dagger(\bm x)$. To summarize
+  \[
+    \hat\psi(\bm x) = \int \frac{\d^3\bm p}{(2\pi)^3}
+      \upe^{\iu\bm p\cdot\bm r} \hat d_{\bm p\sigma}, \qq{and}
+    \hat\psi^\dagger(\bm x) = \int \frac{\d^3\bm p}{(2\pi)^3}
+      \upe^{-\iu\bm p \cdot\bm r} \hat d_{\bm p\sigma}^\dagger.
+  \]
+\end{proof}
+\end{solution}

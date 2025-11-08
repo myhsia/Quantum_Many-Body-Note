@@ -1,0 +1,467 @@
+% !TeX root = ../main.tex
+
+\section{Homework \#6 [2025-10-16]}
+
+\begin{problem}
+  Derive the completeness relation Eq.~\eqref{negele2018quantum:1.123}
+  \begin{equation}
+    \int \prod_\alpha \frac{\d\phi_\alpha^* \d\phi_\alpha}{2\iu\pi}
+    \upe^{-\sum_\alpha \phi_\alpha^*\phi_\alpha} \ketbra|\phi><\phi| = \identity
+    \tag{1.123}
+    \label{negele2018quantum:1.123}
+  \end{equation}
+  by integration. First consider
+  one single-particle state $\alpha$ and let $\ket|n>$ denote the state with $n$
+  particles in $\alpha$. Show that by writing in polar form
+  $\phi = \rho \upe^{\iu\theta}$ one obtains
+  \[
+    \int \frac{\d\phi^* \d\phi}{2\pi\iu} \upe^{-\phi^*\phi} \ketbra|\phi><\phi|
+  = \int \rho \frac{\d\rho \d\theta}{\pi} \upe^{-\rho^2}
+    \sum_m \frac{(\rho\upe^{\iu\theta})}{\sqrt{m!}} \ket|m>
+    \sum_n \frac{(\rho\upe^{-\iu\theta})}{\sqrt{n!}} \bra<n|
+  = \sum_n \ketbra|n><n|.
+  \]
+  Now generalize to a set of single-particle states $\{\ket|\alpha>\}$ noting
+  that the closure relation Eq. (1.89) may be written
+  \[
+    \sum_{\{n_\alpha\}}
+    \ketbra|n_{\alpha_1} n_{\alpha_2} \ldots><n_{\alpha_1} n_{\alpha_2} \ldots|
+  = \identity,
+  \]
+  where $\{n_\alpha\}$ denotes a complete set of occupation numbers.
+\end{problem}
+\begin{solution}
+  Expand the coherent state $\ket|\phi>$ in terms of number state $\ket|n>$
+  \[
+    \ket|\phi> = \sum_{n=0}^\infty c_n \ket|n>.
+  \]
+  Here, we merge the normalization factor into $c_n$ to simplify, and it will be released at the end. Act $\hat a$ on the expand expression of $\ket|\phi>$, due to the property of annihilation operator
+  \[
+    \hat a \ket|\phi> = \sum_{n=0}^\infty c_n \hat a \ket|n>
+  = \sum_{n=1}^\infty c_n \sqrt n \ket|n - 1>
+  = \phi \sum_{n=0}^\infty c_n \ket|n>,
+  \]
+  the third term summing from $n = 1$ is due to $\hat a\ket|0> = 0$,
+  which $n = 0$ make no sence. To uniform the lower limit of $n$,
+  shift the summation index
+  \[
+    \hat a \ket|\phi>
+  = \sum_{n=0}^\infty c_{n+1} \sqrt{n + 1} \ket|n>
+  = \phi \sum_{n=0}^\infty c_n \ket|n>,
+  \]
+  then we obtain the expression of the expansion coefficient
+  \[
+    c_{n+1} \sqrt{n + 1} = \phi c_n, \qq{or}
+    c_n = \frac\phi{\sqrt n} c_{n-1}
+  = \frac\phi{\sqrt n} \frac\phi{\sqrt{n - 1}} c_{n-2} = \cdots
+  = \frac{\phi^n}{\sqrt{n!}} c_0,
+  \]
+  thus we obtain the expansion of $\ket|\phi>$ in terms of number states
+  \[
+    \ket|\phi> = c_0 \sum_{n=0}^\infty \frac{\phi^n}{\sqrt{n!}} \ket|n>
+  \xlongequal{\text{normalization}}
+    \upe^{-|\phi|^2/2} \sum_{n=0}^\infty \frac{\phi^n}{\sqrt{n!}} \ket|n>.
+  \]
+  Writing $\phi$ in polar form $\phi = \rho \upe^{\iu\theta}$,
+  we expand $\d\phi^* \d\phi$ via Wedge product
+  \[
+    \d\phi^* \wedge \d\phi
+  = (\upe^{-\iu\theta} \d\rho - \iu\rho\upe^{-\iu\theta} \d\theta) \wedge
+    (\upe^{\iu\theta} \d\rho + \iu\rho\upe^{\iu\theta} \d\theta)
+  = 2\iu\rho\d\rho \wedge \d\theta,
+  \]
+  then $\d\phi^* \d\phi = 2\iu\rho\d\rho\d\theta$.
+  Substitute the above expressions into the identity
+  \[
+  \identity = \int \frac{\d\phi^* \d\phi}{2\pi\iu} \upe^{-\phi^*\phi} \ketbra|\phi><\phi|
+  = \int_0^{2\pi} \d\theta \int_0^\infty
+    \frac{\rho\d\rho}{\pi} \upe^{-\rho^2} \sum_{m,n=0}^\infty
+    \frac{\rho^{m+n} \upe^{(m-n)\iu\theta}}{\sqrt{m!n!}}
+    \ketbra|m><n|.
+  \]
+  Evaluate the angular integral
+  \[
+    \int_0^{2\pi} \d\theta \upe^{(m-n)\iu\theta} = 2\pi \delta_{mn}.
+  \]
+  Evaluate the radial integral for $m = n$ (since there will be a $\delta_{mn}$ factor)
+  \[
+    \int_0^\infty \d\rho \upe^{-\rho^2} \rho^{2n+1}
+  = \frac12\Gamma(n + 1) = \frac12n!.
+  \]
+  Substitute them into the integral
+  \[
+    I = \sum_{m,n=0} \frac1\pi \frac1{\sqrt{m!n!}}
+        (2\pi\delta_{mn}) \ab(\frac12 n!) \ketbra|m><n|
+      \xlongequal{\text{only $m=n$ survives}} \sum_n \ketbra|n><n|.
+  \]
+  When generalize to a set of complete single-particle basis $\{\ket|\alpha>\}$
+  and build the full Fock space with occupation numbers $\{n_\alpha\}$, i.e.,
+  \[
+    \ket|\{\phi_\alpha\}> = \prod_\alpha \ket|\phi_\alpha>_\alpha,
+  \]
+  the product measure over modes gives the multi-mode resolution of identity.
+  Concretely, for each mode $\alpha$ introduce a complex coordinate
+  $\phi_\alpha$ and form the product integral
+  \[
+    \prod_\alpha \int \frac{\d\phi_\alpha^* \d\phi_\alpha}{2\pi\iu}
+    \upe^{-\phi_\alpha^*\phi_\alpha} \otimes_\alpha
+    \ketbra|\phi_\alpha><\phi_\alpha|,
+  \]
+  expanded into a Fock basis, each mode's angular integral enforces equality of
+  occupation numbers in bra $\bra<|$ and ket $\ket|>$, each radial integral
+  produces the factorial that cancels the $1/\sqrt{n!}$ factors,
+  so the identity ends up with the sum over all occupation-number configurations
+  \[
+    \sum_{\{n_\alpha\}}
+    \ketbra|n_{\alpha_1} n_{\alpha_2} \ldots><n_{\alpha_1} n_{\alpha_2} \ldots|
+  = \identity_\text{Fock}.
+  \]
+  In other words, the modes are independent, and for each that has the
+  completeness shown above.
+\end{solution}
+\newpage
+\begin{problem}
+  Generalize the properties of Grassmann variables demonstrated in Section 1.5
+  for the pari of generators $\xi$, $\xi^*$ to the case $2p$ generators
+  $\{\xi_1 \ldots \xi_p\xi_1^* \ldots \xi_p^*\}$. In particular, determine the
+  general form of a function $f(\xi_\alpha)$ and an operator
+  $A(\xi_\alpha^*, \xi_\alpha)$, show that $\pdv*{}{\xi_\alpha}$,
+  $\pdv*{}{\xi_\beta}$, $\xi_\gamma$, and $\xi_\delta^*$ anticommute, determine
+  if an analogous property holds for integration, find and verify an expression
+  for the $p$-dimensional $\delta$-function $\delta^P(\bm \xi - \bm \xi')$, and
+  generalise Eq.~\eqref{negele2018quantum:1.157}
+  \begin{equation}
+    \begin{aligned}
+      \braket<f|g>
+  & = \int \d\xi^* \d\xi (1 - \xi^*\xi) (f_0^* + f_1^*\xi) (g_0 + g_1\xi^*)\\
+  & = -\int \d\xi^* \d\xi \xi^* \xi f_0^* g_0
+    + \int \d\xi^* \d\xi \xi \xi^* f_1^*g_1 = f_0^* g_0 + f_1^* g_1
+    \end{aligned}
+    \tag{1.157} \label{negele2018quantum:1.157}
+  \end{equation}
+  for $\braket<f|g>$.
+\end{problem}
+\begin{solution}\leavevmode
+  \begin{enumext}
+    \item Function $f(\bm\xi) \equiv f(\xi_1,\ \xi_1,\ \ldots\,,~\xi_p)$ is a general
+    element of the Grassmann algebra generated by
+    $\{\xi_1,\ \xi_1,\ \ldots\,,~\xi_p\}$. Since $\xi_\alpha^2 = 0$,
+    any function must be ``at most'' linear in each variable $\xi_\alpha$, and
+    the function is a \emph{finite polynomial}.
+    Apply Taylor expansion to $f(\xi)$, we can obtain its general form
+    \[
+      f(\xi) = f_0 + \sum_{i=1}^p f_i\xi_i
+    + \sum_{i<j}^p f_{ij}\xi_i\xi_j + \cdots + f_{1\ldots p} \xi_1\cdots\xi_p
+    = \sum_{n=0}^p \frac1{n!} \sum_{\alpha_1<\alpha_2<\cdots<\alpha_n}
+      f_{\alpha_1\cdots\alpha_n} \xi_{\alpha_1\cdots\alpha_n},
+    \]
+    where the coefficients $f_{\{\alpha_i\}}$ are antisymmertic under
+    interchange of any two indices.
+    The Operator depends on $2p$ generators. Apply the same logic to the
+    function, the operator is also a finite linear combination of monomials
+    \[
+      A(\xi^*, \xi) = \sum_{m = 0}^p \sum_{n = 0}^p
+      \sum_{\substack
+        {\alpha_1<\alpha_2<\cdots<\alpha_n\\\beta_1<\beta_2<\cdots<\beta_n}}
+      \frac1{m!n!}
+      A^{(\alpha_1,\alpha_2,\ldots,\alpha_m)}_{(\beta_1,\beta_2,\ldots,\beta_n)}
+      \xi_{\alpha_1}^* \xi_{\alpha_2}^* \cdots \xi_{\alpha_m}^*
+      \xi_{\beta_1}    \xi_{\beta_2}    \cdots \xi_{\beta_n},
+    \]
+    with coefficients $A_{\{\beta_j\}}^{\{\alpha_i\}}$ antisymmetric in the
+    upper indices and antisymmetric in the lower indices.
+    \item Act the partial derivatives with respect to Grassmann variables on a
+    Grassmann variable, or a multiple of Grassmann functions, can be expressed as
+    \[
+      \pdif{\xi_\alpha}(\xi_\beta) = \delta_{\alpha\beta}, \qq{and}
+      \pdif{\xi_\alpha} (AB) = (\pdif{\xi_\alpha} A)B
+    + (-1)^{\epsilon_A} A (\pdif{\xi_\alpha} B),
+    \]
+    where $\epsilon_A = 0$ (even) or $1$ (odd) is the Grassmann parity of $A$.
+    Then, we can obtain the canonical anticommutators
+    \[
+      [\xi_\alpha, \xi_\beta]_+ = 0, \qq{and}
+      [\pdif{\xi_\alpha}, \pdif{\xi_\beta}]_+ = 0,
+    \]
+    and the mixed relation
+    \[
+      [\pdif{\xi_\alpha}, \xi_\beta]_+
+    = \pdif{\xi_\alpha} \xi_\beta + \xi_\beta \pdif{\xi_\alpha}
+    = \delta_{\alpha\beta}.
+    \]
+    With respect to the integration properties
+    \[
+      \int \d\xi_\alpha = 0, \quad \int \d\xi_\alpha \xi_\alpha = 1, \quad
+      \d\xi_\alpha^{(*)} \d\xi_\beta^{(*)}
+    = -\d\xi_\beta^{(*)} \d\xi_\alpha^{(*)}.
+    \]
+    With the chosen ordering the standard normalization is
+    \[
+      \d^p\bm\xi \equiv \d\xi_p \d\xi_{p-1} \cdots \d\xi_1, \quad
+      \int \d^p\bm\xi_{\alpha_1} \xi_{\alpha_2} \cdots \xi_{\alpha_p}
+    = (-1)^{\epsilon_{\xi_i}} \delta_{np}.
+    \]
+    \item Due to the integration properties and the \emph{Dirac measure}, the
+    $p$-dimensional $\delta$-function satisfies
+    \[
+      \int \d^p\xi f(\bm\xi) \delta^p(\bm\xi - \bm\xi') = f(\bm\xi'),
+    \]
+    then, the $p$-dimensional $\delta$-function can be expressed as
+    \[
+      \delta^p(\bm\xi - \bm\xi') \equiv \prod_{\alpha=1}^p
+      (\xi_\alpha - \xi_\alpha'),
+    \]
+    and it can be trivially verified by denoting
+    $f(\bm\xi') = \sum_i f_i\xi_i'$.
+    \[
+      \int \d\xi_1 f(\xi_1,\ \xi_2,\ \ldots\,,~\xi_p)
+        (\xi_1 - \xi_1') \cdots (\xi_p - \xi_p')
+    = f(\xi_1',\ \xi_2,\ \ldots\,,~\xi_p)
+        (\xi_2 - \xi_2') \cdots (\xi_p - \xi_p'),
+    \]
+    which it is similar for $\xi_2$, $\ldots\,$,~$\xi_p$.
+    And after $p$ integrations, the RHS becomes
+    $f(\xi_1',\ \xi_2',\ \ldots\,,~\xi_p') \equiv f(\bm\xi')$.
+    \item Expand $f(\xi)$ and $g(\xi^*)$ as
+    \[
+      f(\xi) = \sum_i f_i\xi_i, \qq{and}
+      g(\xi^*) = \sum_j g_j\xi_j^*,
+    \]
+    then, the inner product can be expressed as
+    \[
+      \braket<f|g> = \int \ab(\prod_{\alpha=1}^p \d\xi_\alpha^* \d\xi_\alpha)
+      \ab[\prod_{\alpha=1}^p (1 - \xi_\alpha^*\xi_\alpha)] f^*(\xi) g(\xi^*)
+      \equiv \sum_i^p f_i^* g_i.
+    \]
+    If $p = 2$, then we will generate Eq. \eqref{negele2018quantum:1.157}, i.e.,
+    $\braket<f|g> = f_0^* g_0 + f_1^* g_1$.
+  \end{enumext}
+\end{solution}
+\newpage
+\begin{problem}
+  Prove the closure relation Eq.~\eqref{negele2018quantum:1.123}
+  \begin{equation}
+    \int \prod_\alpha \frac{\d\phi_\alpha^* \d\phi_\alpha}{2\iu\pi}
+    \upe^{-\sum_\alpha \phi_\alpha^*\phi_\alpha} \ketbra|\phi><\phi| = \identity
+    \tag{1.123}
+  \end{equation}
+  to its fermionic form
+  \[
+    \identity = \int \d\mu(\xi) \upe^{-\sum_\alpha \xi_\alpha^* \xi_\alpha}
+    \ketbra|\xi><\xi|
+  \]
+  for Fermions using Schur's lemma. As in the Boson case, $\ab[a_\alpha,
+  \ket*\Big|\phi>\braket*\Big<\phi \|= \ab(\xi_\alpha - \pdv*{}{\xi_\alpha'})|\phi>\bra*\Big<\phi|]$,
+  so one must show
+  \begin{equation}
+    \int \prod_\alpha \d\xi_\alpha^* \d\xi_\alpha
+    \upe^{-\sum_\alpha \xi_\alpha^* \xi_\alpha}
+    \ab(\xi_\alpha - \pdv*{}{\xi_\alpha^*}) A(\xi_\alpha, \xi_\alpha^*) = 0
+    \tag{P6.1} \label{problem:6.1}
+  \end{equation}
+  for any $A$. First, prove Eq.~\eqref{problem:6.1} as it stands, establishing
+  that the left-hand side of Eq.~\eqref{negele2018quantum:1.126}
+  \begin{equation}
+    \ab[a_\alpha,
+      \int\prod_{\alpha'} \frac{\d\phi_{\alpha'}^* \d\phi_{\alpha'}}{2\pi\iu}
+      \upe^{-\sum_{\alpha'}\phi_{\alpha'}^*\phi_{\alpha'}} \ketbra|\phi><\phi|
+    ] =
+    \int\prod_{\alpha'} \frac{\d\phi_{\alpha'}^* \d\phi_{\alpha'}}{2\pi\iu}
+      \upe^{-\sum_{\alpha'}\phi_{\alpha'}^*\phi_{\alpha'}} \ketbra|\phi><\phi|
+    = 0
+    \tag{1.126} \label{negele2018quantum:1.126}
+  \end{equation}
+  must be proportional to unity, and evaluate the constant of proportionality
+  by calculating the matrix element in the zero-particle state.
+
+  Then note that Eq.~\eqref{problem:6.1} is a special case of integration by parts for
+  Grassmann variables. Show that the general rule for integration by parts is
+  \begin{equation}
+    \int \prod_\alpha \d\xi_\alpha^* \d\xi_\alpha A(\xi_\alpha^*,\xi_\alpha)
+    \frac{\vec\partial}
+      {\partial\xi_\alpha} B(\xi_\alpha^*, \xi_\alpha) =
+    \int \prod_\alpha \d\xi_\alpha^* \d\xi_\alpha A(\xi_\alpha^*,\xi_\alpha)
+    \frac{\cev\partial}{\partial\xi_\alpha} B(\xi_\alpha^*, \xi_\alpha)
+    \tag{P6.2} \label{problem:6.2}
+  \end{equation}
+  where $\frac{\cev\partial}
+    {\partial\xi_\alpha}$ acts to the left and the variable $\xi_\alpha$ must
+  be anticommuted to the right to be adjacent to the derivative. Note in
+  particular that the sign in Eq.~\eqref{problem:6.2} is reversed from the usual
+  relation for complex variables, and that expressions like
+  $\int \prod_\alpha \d\xi_\alpha^* \d\xi_\alpha \pdv*{}{\xi_\alpha}
+    [A(\xi_\alpha^*, \xi_\alpha)] B(\xi_\alpha^*, \xi_\alpha)$ do not reproduce
+  the right-hand side.
+\end{problem}
+\begin{solution}
+  We need to list some identities of the Grassmann variables.
+  \begin{enumext*}[columns = 13]
+    \item(2) $\xi^2 = 0$
+    \item(2) $\xi = \xi^*$
+    \item(2) $\xi^* \xi = -\xi \xi^*$
+    \item(2) $\int 1 \d\xi = 0$
+    \item(2) $\int \xi \d\xi = 1$
+    \item(3) $\int \ab[\pdv{f(\theta)}\theta] \d\theta = 0$
+  \end{enumext*}
+  Then the exponential term and $A(\xi^*, \xi)$ can be expanded as
+  \[
+    \upe^{-\xi^*\xi} = 1 - \xi^*\xi, \quad \upe^{-\xi^*\xi} \xi = \xi, \qq{and}
+    A(\xi^*, \xi) = A_{00} + A_{01}\xi + A_{10}\xi^* + A_{11}\xi\xi^*,
+  \]
+  where the other terms consist $\xi^2$, ${\xi^*}^2$, or $(\xi^*\xi)^2$ vanish.
+  To prove Eq.~\eqref{problem:6.1}, consider
+  \[
+    \int \d\xi^* \d\xi \upe^{-\xi^*\xi} (\xi - \pdif{\xi^*}) A(\xi^*, \xi).
+  \]
+  The first term of the integral can be expanded as
+  \[
+    \int \d\xi^* \int \d\xi \upe^{-\xi^*\xi} \xi A(\xi, \xi^*)
+  = \int \d\xi^* \int \d\xi  \xi (A_{00} + A_{01}\xi + A_{10}\xi^* + A_{11}\xi\xi^*)
+  = A_{10},
+  \]
+  where only the term containing $\xi\xi^*$ survives.
+  Since the derivative of two Grassmann terms satisfies
+  \[
+    \pdif{\xi^*}[\upe^{-\xi^*\xi} A(\xi, \xi^*)]
+  = \pdif{\xi^*}(\upe^{-\xi^*\xi}) A(\xi, \xi^*)
+  + \upe^{-\xi^*\xi} \pdif{\xi^*} A(\xi, \xi^*).
+  \]
+  Then the second term of the integral can be expanded as
+  \begin{align*}
+  & \int \d\xi^* \int \d\xi \upe^{-\xi^*\xi} \pdif{\xi^*} A(\xi, \xi^*)
+= \xcancel{\int \d\xi^* \int \d\xi \pdif{\xi^*}[\upe^{-\xi^*\xi} A(\xi, \xi^*)]}
+  - \int \d\xi^* \int \d\xi \pdif{\xi^*}(\upe^{-\xi^*\xi}) A(\xi, \xi^*)\\
+= & - \int \d\xi^* \int \d\xi \pdif{\xi^*}(1 - \xi^*\xi) A(\xi, \xi^*)
+= \int \d\xi^* \int \d\xi \xi
+  (A_{00} + A_{01}\xi + A_{10}\xi^* + A_{11}\xi\xi^*)
+= A_{10}.
+  \end{align*}
+  Combining the two terms, we have
+  \[
+    \int \d\xi^* \d\xi \upe^{-\xi^*\xi} (\xi - \pdif{\xi^*}) A(\xi^*, \xi)
+  = A_{10} - A_{10} = 0.
+  \]
+  Concerning multi-mode: for a fixed label $\beta$, consider the total
+  derivative $\pdif{\xi_\beta^*}$ to
+  $\upe^{-\sum_\alpha\xi_\alpha^*\xi_\alpha} A(\xi_\alpha, \xi_\alpha^*)$.
+  The same algebra gives
+  \[
+    \pdv*{\upe^{-\sum_\alpha\xi_\alpha^*\xi_\alpha} A(\xi_\alpha, \xi_\alpha^*)}{\xi_\beta^*}
+  = -\xi_\beta \upe^{-\sum_\alpha \xi_\alpha^*\xi_\alpha}
+  + \upe^{-\sum_\alpha \xi_\alpha^*\xi_\alpha} \pdif{\xi_\beta^*} A(\xi, \xi^*),
+  \]
+  and integrating over $\prod_\alpha \d\xi_\alpha^* \d\xi_\alpha$ yields zero.
+  Thus, the multi-mode identity Eq.~\eqref{problem:6.1} follows.
+  Then, we shall generate Eq.~\eqref{negele2018quantum:1.126}.
+  Consider the single mode first, we calculate the ``kernel'' commutator
+  $[\hat a, \ketbra|\xi><\xi|]$.
+  \begin{enumext}
+    \item $a \ket|\xi>$.
+    Since $\ket|\xi>$ can be expanded as
+    \[
+      \ket|\xi> = \upe^{a^\dagger\xi} \ket|0> = (1 + a^\dagger\xi) \ket|0>.
+    \]
+    Left act $a$ on it, then we have
+    \[
+      a\ket|\xi> = a \ket|0> + aa^\dagger\xi\ket|0>
+    = 0 + (1 + a^\dagger a)\xi\ket|0> = \xi\ket|0>.
+    \]
+    If we multiply $\xi$ to $\ket|\xi>$
+    \[
+      \xi\ket|\xi> = \xi (1 + a^\dagger\xi) \ket|0> = \xi \ket|0>,
+    \]
+    the $\xi^2$ term vanishes. So, we get the expression
+    $a\ketbra|\xi><\xi| = \xi\ketbra|\xi><\xi|$.
+    \item $\bra<\xi| a$.
+    Since $\bra<\xi|$ can be expanded as
+    \[
+      \bra<\xi| = \upe^{a\xi^*} \bra<0| = \bra<0|(1 + a\xi^*).
+    \]
+    Right act $a$ on it, then we have
+    \[
+      \bra<\xi|a = \bra<0|(1 + a\xi^*) a = \bra<0|a + \bra<0| a\xi^*a
+    = \bra<0| a,
+    \]
+    where $\bra<0|a = (a^\dagger\ket|0>)^\dagger = \bra<1|$,
+    and $aa$ forms a zero operator, i.e., $aa = 0$ (for Fermions).
+    If we right act $\pdif{\xi^*}$ on $\bra<\xi|$
+    \[
+      \bra<\xi| \cev\partial_{\xi^*} = (1 + a\xi^*) \bra<0| \cev\partial_{\xi^*}
+    = \bra<0|a,
+    \]
+    So, we get the expression $\bra<\xi|a = \bra<\xi| \cev\partial_{\xi^*}$,
+    and we have
+    \[
+      (\ketbra|\xi><\xi|) \cev\partial_{\xi^*}
+    = (\ket|\xi>\cev\partial_{\xi^*})\bra<\xi| +
+      \ketbra|\xi>(<\xi|\cev\partial_{\xi^*})
+    = ((1 + a^\dagger\xi)\ket|0>\cev\partial_{\xi^*})\bra<\xi| +
+      \ketbra|\xi>(<\xi|\cev\partial_{\xi^*})
+    = \ketbra|\xi>(<\xi|\cev\partial_{\xi^*}).
+    \]
+    \item Prove the relation between left and right derivatives.
+    Denote
+    \[
+      \d\mu(\xi) \equiv \prod_\alpha \d\xi_\alpha^*\xi_\alpha.
+    \]
+    Due to the identities of the derivative of Grassmann variables
+    \[
+      \pdv*[fun]{AB}\xi = \ab(\pdv A\xi)B + (-1)^{\epsilon_A} A\ab(\pdv B\xi),
+    \]
+    where $\epsilon_A$ is the parity of $A$.
+    Integral over the total derivative, and using the partial integration
+    formula of Grassmann variables
+    \begin{align*}
+      0 \equiv \int \d\mu \vec\partial_\xi(AB)\xi
+    & = \int \d\mu (\vec\partial_\xi A) B
+    + (-1)^{\epsilon_A} \int \d\mu A (\vec\partial_\xi B),\\
+      \int \d\mu A (\vec\partial_\xi B)
+    & = -(-1)^{\epsilon_A} \int \d\mu (\vec\partial_\xi A) B.
+    \end{align*}
+    Due to the property of the Grassmann variable,
+    the left-acting derivative to $A$ can be expanded as
+    \[
+      A\cev{\partial_\xi} = -(-1)^{\epsilon_A} \vec\partial_\xi A,
+    \]
+    by combining the two expressions above, we can obtain
+    \[
+      \int \d\mu A(\vec\partial_\xi B) = \int \d\mu A\cev\partial_\xi B.
+    \]
+    Also for multi-mode, which we proved Eq.~\eqref{problem:6.2}.
+  \end{enumext}
+  Then, the ``kernel'' commutator becomes
+  \[
+    [\hat a, \ketbra|\xi><\xi|] = a\ketbra|\xi><\xi| - \ketbra|\xi><\xi|a
+  = \xi\ketbra|\xi><\xi| - (\ketbra|\xi><\xi|) \cev\partial_{\xi^*}
+  = (\xi - \vec\partial_{\xi^*}) \ketbra|\xi><\xi|,
+  \]
+  and the commutator in Eq.~\eqref{negele2018quantum:1.126} can be written as
+  \[
+    \ab[a, \int \d\mu \upe^{\xi^* \xi} \ketbra|\xi><\xi|]
+  = \int \d\mu \upe^{\xi^*\xi} (\xi - \vec\partial_{\xi^*}) \ketbra|\xi><\xi|
+  \xlongequal{\text{Eq.~\eqref{problem:6.1}}} 0,
+  \]
+  and it also satisfies multi-mode, which we proved Eq.~
+  \eqref{negele2018quantum:1.126}. Due to Schur's lemma, the operator
+  $\mathcal O \equiv \int \d\mu \upe^{\xi^* \xi} \ketbra|\xi><\xi|$
+  commutes to $a$, then it is proportional to unity,
+  i.e., $\mathcal O = C\mathbbm 1$. To determine $C$, calculate the vacuum
+  expectation of $\mathcal O$
+  \[
+    C \equiv \braket<0|\mathcal O|0> = \int \d\mu(\xi)
+    \upe^{-\sum_\alpha \xi_\alpha^* \xi} \braket<0|\xi> \braket<\xi|0>.
+  \]
+  Since the expansion of $\ket|\xi>$, $\bra<\xi|$, and $\upe^{-\xi^*\xi}$,
+  we have
+  \[
+    \braket<0|\xi> = \braket<\xi|0> = 1, \qq{and}
+    \int \d\xi^*\d\xi \upe^{-\xi^*\xi} = \int \d\xi^*\d\xi (1 - \xi^*\xi) = 1.
+  \]
+  Therefore
+  \[
+    C = 1, \quad \mathcal O = \mathbbm 1, \qq{and}
+    \int\d\mu(\xi) \upe^{-\sum_\alpha \xi_\alpha^* \xi} \ketbra|\xi><\xi|
+  = \identity,
+  \]
+  which we proved the fermionic form for Eq.~\eqref{negele2018quantum:1.123}.
+\end{solution}

@@ -1,0 +1,511 @@
+% !TeX root = ../main.tex
+
+\section{Homework \#7 [2025-10-22]}
+
+\begin{problem}
+  Investigate a simple model Hamiltonian for BCS superconductivity,
+  \[
+    \mathcal H_k = t(k) (
+      a_{k\uparrow}^\dagger a_{k\uparrow} +
+      a_{-k\downarrow}^\dagger a_{-k\downarrow}) - \Delta(
+      a_{k\uparrow}^\dagger a_{-k\downarrow}^\dagger +
+      a_{-k\downarrow} a_{k\uparrow}).
+  \]
+  \begin{enumext}
+    \item Find the energy eigenvalues of $\mathcal H_k$.
+    \item Give the corresponding eigenstates.
+    \item Give the possible excitation energies of the system.
+    \item Identify the excitation gap, i.e. the minimum of the excitation
+    energies. Consider the simplest 1D case: assuming $t(k) = -2t\cos k - \mu$.
+  \end{enumext}
+\end{problem}
+\begin{solution}\leavevmode
+  \begin{enumext}
+    \item We consider the two big terms of the Hamiltonian, respectively.
+    Working in the 4D Fock space, there are 4 identities
+    \begin{enumext*}[columns = 14]
+      \item(3) $\ket|0> \equiv \ket|0_{k\uparrow}, 0_{-k\downarrow}>$
+      \item(3) $\ket|k\uparrow> \equiv a_{k\uparrow}^\dagger \ket|0>$
+      \item(4) $\ket|-k\downarrow> \equiv a_{-k\downarrow}^\dagger \ket|0>$
+      \item(4) $\ket|k\uparrow, -k\downarrow>
+                \equiv a_{k\uparrow}^\dagger a_{-k\downarrow}^\dagger \ket|0>$
+    \end{enumext*}
+    Now, we shall compute how each of the 4 operators in $\mathcal H_k$ acts on
+    the basis.
+    \begin{enumext}
+      \item Number term
+      \[
+        \begin{array}{*3{l@{~}c@{~}l@{\qquad}}l@{~}c@{~}l}
+          a_{k\uparrow}^\dagger a_{k\uparrow} \ket|k\uparrow>   & =
+        & \ket|k\uparrow>, &
+          a_{k\uparrow}^\dagger a_{k\uparrow}
+          \{\ket|0>,\ \ket|-k\downarrow>,\ \ket|k\uparrow, -k\downarrow>\} & =
+        & \{0\},\\
+          a_{-k\downarrow}^\dagger a_{-k\downarrow} \ket|k\uparrow>   & =
+        & \ket|-k\downarrow>, &
+          a_{-k\downarrow}^\dagger a_{-k\downarrow}
+          \{\ket|0>,\ \ket|-k\downarrow>,\ \ket|k\uparrow, -k\downarrow>\} & =
+        & \{0\}.
+        \end{array}
+      \]
+      \item Pairing term
+      \[
+        \begin{array}{l@{~}c@{~}l@{\qquad}l@{~}c@{~}l}
+          a_{k\uparrow}^\dagger a_{-k\downarrow}^\dagger \ket|0> & =
+        & \ket|k\uparrow, -k\downarrow>, & 
+          a_{k\uparrow}^\dagger a_{-k\downarrow}^\dagger
+          \{\ket|k\uparrow>,\ \ket|-k\downarrow>,\
+            \ket|k\uparrow, -k\downarrow>\} & = & \{0\},\\
+          a_{-k\downarrow} a_{k\uparrow} \ket|k\uparrow, -k\downarrow>
+         & = & \ket|0>, &
+          a_{-k\downarrow} a_{k\uparrow}
+          \{\ket|0>,\ \ket|k\uparrow>,\ \ket|k\downarrow>\} & = & \{0\}.
+        \end{array}
+      \]
+    \end{enumext}
+    \begin{minipage}[t]{.48\linewidth}
+    The number term acts diagonally, giving
+    \begin{center}
+      \begin{tabular}{*5l}
+        \toprule
+        State & $\ket|0>$ & $\ket|k\uparrow>$ &
+        $\ket|-k\downarrow>$ & $\ket|k\uparrow, -k\downarrow>$\\
+        \midrule
+        Energy& $0$ & $t(k)$ & $t(k)$ & $2t(k)$\\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+    \end{minipage}
+    \hspace*\fill
+    \begin{minipage}[t]{.5\linewidth}
+      Pairing term couples only $\ket|0>$ and
+      $\ket|k\uparrow, -k\downarrow>$
+      \begin{align*}
+      & -\Delta(
+        a_{k\uparrow}^\dagger a_{-k\downarrow}^\dagger +
+        a_{-k\downarrow} a_{-k\downarrow}) \ket|0>
+      = -\Delta \ket|k\uparrow, -k\downarrow>,\\
+      & -\Delta(
+        a_{k\uparrow}^\dagger a_{-k\downarrow}^\dagger +
+        a_{-k\downarrow} a_{-k\downarrow}) \Delta \ket|k\uparrow, -k\downarrow>
+      = -\ket|0>.
+      \end{align*}
+    \end{minipage}
+
+    Since some of the actions act on, or create / annihilate the number of
+    particles are odd, and other actions are even, so we can separate the
+    Hamiltonian into two independent blocks
+    \[
+      \mathcal H_k =
+      \begin{cases*}
+        \{\ket|k\uparrow>,\ \ket|-k\downarrow>\}, & Odd sector,\\
+        \{\ket|0>,\ \ket|k\uparrow,\ -k\downarrow>\}, & Even sector,
+      \end{cases*}
+    \]
+    where
+    \[\begin{array}{l@{~}c@{~}l@{~}c@{~}l}
+      \mathcal H_\text{odd} & = &
+      \begin{pmatrix}
+        \braket<k\uparrow|\mathcal H_k|k\uparrow> &
+        \braket<k\uparrow|\mathcal H_k|-k\downarrow>\\
+        \braket<-k\downarrow|\mathcal H_k|k\uparrow> &
+        \braket<-k\downarrow|\mathcal H_k|-k\downarrow>
+      \end{pmatrix} & = &
+      \begin{pmatrix}
+        t(k) & 0\\
+        0 & t(k)
+      \end{pmatrix},\\
+      \mathcal H_\text{even} & = &
+      \begin{pmatrix}
+        \braket<0|\mathcal H_k|0> &
+        \braket<0|\mathcal H_k|k\uparrow, -k\downarrow>\\
+        \braket<k\uparrow, -k\downarrow|\mathcal H_k|0> &
+        \braket<k\uparrow, -k\downarrow|\mathcal H_k|k\uparrow, -k\downarrow>
+      \end{pmatrix} & = &
+      \begin{pmatrix}
+        0 & -\Delta\\ -\Delta & 2t(k)
+      \end{pmatrix}.
+    \end{array}
+    \]
+    It is trivial that in the odd sector, both states have energy
+    $E_\text{odd} = t(k)$, corresponding to 2nd degeneracy.
+    In the even sector, we need to solve the eigenvalue equation
+    \[
+      \det|\mathcal H_\text{even} - \lambda| = 0.
+    \]
+    Hence, we have the eigenvalues for the even sector
+    \[
+      \lambda_1 = t(k) + \sqrt{t^2(k) + \Delta^2}, \quad
+      \lambda_2 = t(k) - \sqrt{t^2(k) + \Delta^2}.
+    \]
+    In summary, the eigenvalues of $\mathcal H_k$ are
+    \[
+      E_\text{odd} = t(k), \quad
+      E_\text{ground} = t(k) - \sqrt{t^2(k) + \Delta^2},\
+      (\text{Degeneracy} = 2) \quad
+      E_\text{excited} = t(k) + \sqrt{t^2(k) + \Delta^2}.
+    \]
+    \item Since in the odd sector, the Hamiltonian is diagonal, so it is trivial
+    that the eigenstates in the odd sector are
+    \[
+      \psi_\text{odd 1} = \ket|k\uparrow>, \quad
+      \psi_\text{odd 2} = \ket|-k\downarrow>.
+    \]
+    Concerning the even sector. Denote $E_k = \sqrt{t^2(k) + \Delta^2}$ for
+    simplification. Since in the 4D Fock space, the basis should be orthonormal.
+    So, assume the two eigenstates in the even sector to be
+    \[
+      \psi_\text{ground} = a_1\ket|0> + b_1\ket|k\uparrow, -k\downarrow>, \quad
+      \psi_\text{excited} = a_2\ket|0> + b_2\ket|k\uparrow, -k\downarrow>.
+    \]
+    Since the orthonormality
+    $\braket<\psi_\text{even 1}|\psi_\text{even 2}> = 0$, then we can derive
+    \[
+      \frac{a_1}{b_1} = -\frac{b_2}{a_2}.
+    \]
+    Let $a_1 = a_k$, $b_1 = b_k$. Then, the two eigenstates in the even sector
+    can be expressed as
+    \[
+      \psi_\text{ground}  = a_k\ket|0> + b_k\ket|k\uparrow, -k\downarrow>, \quad
+      \psi_\text{excited} = b_k\ket|0> - a_k\ket|k\uparrow, -k\downarrow>.
+    \]
+    where $a_k$ and $b_k$ should satisfies the normalization
+    $a_k^2 + b_k^2 = 1$.
+    To obtain $a_k$ and $b_k$, substitute $\psi_\text{ground}$ into the
+    eigenequation
+    \[
+      \begin{pmatrix}
+        0 & -\Delta\\ -\Delta & 2t(k)
+      \end{pmatrix}
+      \begin{pmatrix}
+        a_k \\ b_k
+      \end{pmatrix} =
+      E_\text{ground}
+      \begin{pmatrix}
+        a_k \\ b_k
+      \end{pmatrix}.
+    \]
+    Then we will obtain
+    \[
+      a_k^2 = \frac12\ab(1 + \frac{t(k)}{E_k}), \quad
+      b_k^2 = \frac12\ab(1 - \frac{t(k)}{E_k}).
+    \]
+    So, the eigenstates in the even sector are
+    \begin{align*}
+      \psi_\text{ground} &
+    = \sqrt{\frac12\ab(1 + \frac{t(k)}{E_k})} \ket|0>
+    + \sqrt{\frac12\ab(1 - \frac{t(k)}{E_k})} \ket|k\uparrow, -k\downarrow>,\\
+      \psi_\text{excited}&
+    = \sqrt{\frac12\ab(1 - \frac{t(k)}{E_k})} \ket|0>
+    - \sqrt{\frac12\ab(1 + \frac{t(k)}{E_k})} \ket|k\uparrow, -k\downarrow>.
+    \end{align*}
+    \item Since the energy eigenvalues of $\mathcal H_k$ are
+    \[
+      \{t(k),\ t(k),\ t(k) - E_k,\ t_k + E_k\}.
+    \]
+    It is trivial that the ground energy is $E_0 = t(k) - E_k$, and other there
+    energies corresponding states are all excited states. So, the excitation
+    energies of the system are
+    \[
+      \Delta E_\text{1qp} = t(k) - (t(k) - E_k) = E_k, \quad
+      \Delta E_\text{2qp} = (t(k) + E_k) - (t(k) - E_k) = 2E_k.
+    \]
+    (Note: ``qp'' means ``quasi-particle'').
+    \item It is trivial that the minimum of the excitation energies is
+    \[
+      \Delta E_{\min} = \Delta E_{1qp} = E_k = \sqrt{t^2(k) + \Delta^2}.
+    \]
+    Since $t(k) = -2t\cos k - \mu$, so the minimum occurs when $t(k) = 0$,
+    i.e.,
+    \[
+      k = \cos^{-1}\ab(-\frac{\mu}{2t}) = \pi - \cos^{-1}\ab(\frac{\mu}{2t}).
+    \]
+    Then, the minimum excitation energy in the simplest 1D case is
+    \[
+      \Delta E_{\min} = \Delta.
+    \]
+  \end{enumext}
+\end{solution}
+\newpage
+\begin{problem}
+  \begin{enumext}\leavevmode
+    \item Show that the excitations of a BCS superconductor are generated from
+    Exercise 7.1 by the operators
+    \[
+      \rho_{k\uparrow}^\dagger
+    = u_k a_{k\uparrow}^\dagger - v_k a_{-k\downarrow}; \quad
+      \rho_{-k\downarrow}^\dagger
+    = u_k a_{-k\downarrow}^\dagger + v_k a_{k\uparrow}.
+    \]
+    The coefficients $u_k$ and $v_k$ are defined as
+    \[
+      u_k^2 = \frac12 \ab\{1 + \frac{t(k)}{[t^2(k) + \Delta^2]^{1/2}}\}, \quad
+      v_k^2 = 1 - u_k^2.
+    \]
+    \item Prove that these operators are purely Fermionic operators.
+    \item Compute the commutator
+    \[
+      [\mathcal H^*, \rho_{k\uparrow}^\dagger]_-.
+    \]
+    How is this result to be interpreted?
+    \item Formulate and solve the equation of motion of the retarded Green's
+    function
+    \[
+      \hat G_{k\uparrow}^\text{ret}(E)
+    = \ab*<\braket<\rho_{k\uparrow};\rho_{k\uparrow}^\dagger>>_E^\text{ret}.
+    \]
+    \item Compute Green's functions of the original fermions $a_k$s and
+    $a_k^\dagger$s, consider all non-zero combinations. You can express them
+    via linear transformations between $\rho_k$s and $a_k$s.
+  \end{enumext}
+\end{problem}
+\begin{solution}\leavevmode
+  \begin{enumext}
+    \item \begin{proof}
+      Obviously, the given coefficients $u_k$ and $v_k$ is just $a_k$ and $b_k$
+      that obtained in Exercise 7.1.
+      List $\rho_{k\uparrow}$, $\rho_{-k\downarrow}$ and their conjugates first
+      \[
+        \begin{array}{l@{~}c@{~}l@{\quad} l@{~}c@{~}l@{\quad}}
+          \rho_{k\uparrow}^\dagger & = &
+          u_k a_{k\uparrow}^\dagger - v_k a_{-k\downarrow}, &
+          \rho_{-k\downarrow}^\dagger & = &
+          u_k a_{-k\downarrow}^\dagger + v_k a_{k\uparrow},\\
+          \rho_{k\uparrow} & = &
+          u_k a_{k\uparrow} - v_k a_{-k\downarrow}^\dagger, &
+          \rho_{-k\downarrow} & = &
+          u_k a_{-k\downarrow} + v_k a_{k\uparrow}^\dagger.
+        \end{array}
+      \]
+      from which we can obtain the inverse transformations
+      \[
+        \begin{array}{l@{~}c@{~}l@{\quad} l@{~}c@{~}l@{\quad}}
+          a_{k\uparrow}^\dagger & = &
+          u_k \rho_{k\uparrow}^\dagger    + v_k \rho_{-k\downarrow}, &
+          a_{-k\downarrow}^\dagger & = &
+          u_k \rho_{-k\downarrow}^\dagger - v_k \rho_{k\uparrow},\\
+          a_{k\uparrow} & = &
+          u_k \rho_{k\uparrow}            + v_k \rho_{-k\downarrow}^\dagger, &
+          a_{-k\downarrow} & = &
+          u_k \rho_{-k\downarrow}         - v_k \rho_{k\uparrow}^\dagger.
+        \end{array}
+      \]
+      Then, using the identities that can be easily obtained
+      \[
+        u_k^2 - v_k^2 = \frac{t(k)}{E_k}, \quad
+        2u_kv_k = \frac{\Delta}{E_k}, \quad
+        u_k^2 + v_k^2 = 1, \quad
+        E_k = \sqrt{t^2(k) + \Delta^2},
+      \]
+      and the operator identities of the fermions $a_{k\uparrow}$,
+      $a_{-k\uparrow}$ and their conjugates to substitute them into
+      $\mathcal H_k$, we have
+      \[
+        \mathcal H_k
+      = E_k(\rho_{k\uparrow}^\dagger  \rho_{k\uparrow} +
+            \rho_{-k\uparrow}^\dagger \rho_{-k\uparrow}) +
+        (t(k) - E_k) \equiv \mathcal H^*,
+      \]
+      where the constant term $t(k) - E_k$ is just an energy shift and doesn't
+      affect the excitation spectrum. Thus, the operators
+      $\rho_{k\uparrow}^\dagger$ and $\rho_{k\downarrow}^\dagger$
+      (and their conjugates) create create excitations with energy $E_k$ above
+      the BCS ground state.
+    \end{proof}
+    \item \begin{proof} \let \qed \relax
+    Since the fact that Fermionic operators $a_{k\uparrow}$, $a_{-k\downarrow}$
+    satisfy the anticommutation relations of, then calculate the same
+    anticommutation relations between the operators
+    $\rho_{k\uparrow}$, $\rho_{-k\downarrow}$, and their conjugates
+    \begin{enumext}
+      \item $\{\rho_{k\uparrow}, \rho_{k\uparrow}^\dagger\}$
+      \begin{align*}
+        \rho_{k\uparrow} \rho_{k\uparrow}^\dagger
+      & = u_k^2 a_{k\uparrow} a_{k\uparrow}^\dagger
+        - u_k v_k a_{k\uparrow} a_{-k\downarrow}
+        - u_k v_k a_{-k\downarrow}^\dagger a_{k\uparrow}^\dagger
+        + v_k^2 a_{-k\downarrow}^\dagger a_{-k\downarrow}, \\
+        \rho_{k\uparrow}^\dagger \rho_{k\uparrow}
+      & = u_k^2 a_{k\uparrow}^\dagger a_{k\uparrow}
+        - u_k v_k a_{k\uparrow}^\dagger a_{-k\downarrow}^\dagger
+        - u_k v_k a_{-k\downarrow} a_{k\uparrow}
+        + v_k^2 a_{-k\downarrow} a_{-k\downarrow}^\dagger.
+      \end{align*}
+      Adding and using fermionic anticommutators
+      \[
+        \{a_{k\uparrow}, a_{k\uparrow}^\dagger\} = 1, \quad
+        \{a_{-k\downarrow}, a_{-k\downarrow}^\dagger\} = 1,
+      \]
+      where the cross terms vanish. We get
+      \[
+        \{\rho_{k\uparrow}, \rho_{k\uparrow}^\dagger\} = u_k^2 + v_k^2 = 1.
+      \]
+      \item $\{\rho_{-k\downarrow}, \rho_{-k\downarrow}^\dagger\}$
+      \begin{align*}
+        \rho_{-k\downarrow} \rho_{-k\downarrow}^\dagger
+    & = u_k^2 a_{-k\downarrow} a_{-k\downarrow}^\dagger
+      + u_k v_k a_{-k\downarrow} a_{k\uparrow}
+      + u_k v_k a_{k\uparrow}^\dagger a_{-k\downarrow}^\dagger
+      + v_k^2 a_{k\uparrow}^\dagger a_{k\uparrow}, \\
+        \rho_{-k\downarrow}^\dagger \rho_{-k\downarrow}
+    & = u_k^2 a_{-k\downarrow}^\dagger a_{-k\downarrow}
+      + u_k v_k a_{-k\downarrow}^\dagger a_{k\uparrow}^\dagger
+      + u_k v_k a_{k\uparrow} a_{-k\downarrow}
+      + v_k^2 a_{k\uparrow} a_{k\uparrow}^\dagger.
+      \end{align*}
+      Adding and using anticommutators
+      \[
+        \{\rho_{-k\downarrow}, \rho_{-k\downarrow}^\dagger\}
+      = u_k^2 + v_k^2 = 1.
+      \]
+      \item $\{\rho_{k\uparrow}, \rho_{-k\downarrow}^\dagger\}$
+      \begin{align*}
+        \rho_{k\uparrow} \rho_{-k\downarrow}^\dagger
+      & = u_k^2 a_{k\uparrow} a_{-k\downarrow}^\dagger
+        + u_k v_k a_{k\uparrow} a_{k\uparrow}
+        - u_k v_k a_{-k\downarrow}^\dagger a_{-k\downarrow}^\dagger
+        - v_k^2 a_{-k\downarrow}^\dagger a_{k\uparrow}, \\
+        \rho_{-k\downarrow}^\dagger \rho_{k\uparrow}
+      & = u_k^2 a_{-k\downarrow}^\dagger a_{k\uparrow}
+        + u_k v_k a_{k\uparrow} a_{k\uparrow}
+        - u_k v_k a_{-k\downarrow}^\dagger a_{-k\downarrow}^\dagger
+        - v_k^2 a_{k\uparrow} a_{-k\downarrow}^\dagger.
+      \end{align*}
+      All terms vanish due to anticommutation
+      \[
+        \{\rho_{k\uparrow}, \rho_{-k\downarrow}^\dagger\} = 0.
+      \]
+      \item $\{\rho_{k\uparrow}, \rho_{-k\downarrow}\}$
+      \begin{align*}
+        \rho_{k\uparrow} \rho_{-k\downarrow}
+      & = u_k^2 a_{k\uparrow} a_{-k\downarrow}
+        + u_k v_k a_{k\uparrow} a_{k\uparrow}^\dagger
+        - u_k v_k a_{-k\downarrow}^\dagger a_{-k\downarrow}
+        - v_k^2 a_{-k\downarrow}^\dagger a_{k\uparrow}^\dagger, \\
+        \rho_{-k\downarrow} \rho_{k\uparrow}
+      & = u_k^2 a_{-k\downarrow} a_{k\uparrow}
+        + u_k v_k a_{k\uparrow}^\dagger a_{k\uparrow}
+        - u_k v_k a_{-k\downarrow} a_{-k\downarrow}^\dagger
+        - v_k^2 a_{k\uparrow}^\dagger a_{-k\downarrow}^\dagger.
+      \end{align*}
+      Adding and simplifying
+      \[
+        \{\rho_{k\uparrow}, \rho_{-k\downarrow}\}
+      = u_k v_k - u_k v_k = 0.
+      \]
+      \item For other anticommutators,
+      by similar computations or Hermitian conjugation
+      \[
+        \{\rho_{k\uparrow}^\dagger, \rho_{-k\downarrow}^\dagger\} = 0, \quad
+        \{\rho_{k\uparrow}, \rho_{k\uparrow}\} = 0, \qq{etc.}
+      \]
+      In summary, the operators $\rho_{k\sigma}$,
+      $\rho_{k\sigma}^\dagger$, and their conjugates satisfy
+      \[
+        \{\rho_{k\sigma}, \rho_{k'\sigma'}^\dagger\}
+      = \delta_{kk'}\delta_{\sigma\sigma'}, \quad
+        \{\rho_{k\sigma}, \rho_{k'\sigma'}\} = 0, \quad
+        \{\rho_{k\sigma}^\dagger, \rho_{k'\sigma'}^\dagger\} = 0.
+      \]
+      Thus, they are purely Fermionic operators. \hfill \ensuremath\square
+    \end{enumext}
+    \end{proof}
+    \item \begin{enumext}
+      \item The first term
+      \[
+          [ \rho_{k'\uparrow}^\dagger \rho_{k'\uparrow},
+            \rho_{k\uparrow}^\dagger ]
+        = \rho_{k'\uparrow}^\dagger
+          \{\rho_{k'\uparrow}, \rho_{k\uparrow}^\dagger\}
+        - \{\rho_{k'\uparrow}^\dagger, \rho_{k\uparrow}^\dagger\}
+          \rho_{k'\uparrow}
+        = \delta_{kk'} \rho_{k'\uparrow}^\dagger \cdot 1 - 0
+        = \delta_{kk'} \rho_{k\uparrow}^\dagger.
+      \]
+      \item The second term
+      \[
+        [ \rho_{-k'\downarrow}^\dagger \rho_{-k'\downarrow},
+          \rho_{k\uparrow}^\dagger ]
+      = \rho_{-k'\downarrow}^\dagger
+        \{\rho_{-k'\downarrow}, \rho_{k\uparrow}^\dagger\}
+      - \{\rho_{-k'\downarrow}^\dagger, \rho_{k\uparrow}^\dagger\}
+        \rho_{-k'\downarrow} = 0.
+      \]
+    \end{enumext}
+    Thus, only the term with $k' = k$ contributes
+    \[
+      [\mathcal H, \rho_{k\uparrow}^\dagger] = E_k \rho_{k\uparrow}^\dagger.
+    \]
+    This result interrupts that $\rho_{k\uparrow}^\dagger$ is an eigenoperator
+    of the Hamiltonian $\mathcal H^*$ with eigenvalue $E_k$. Equivalently,
+    $\rho_{k\uparrow}^\dagger$ to an eigenstate of $\mathcal H$ creates an
+    excitation of energy $E_k$ measured from the BCS ground state, confirming
+    that $\rho_{k\uparrow}^\dagger$ is the quasiparticle creation operator.
+    \item The retarded Green's function for the quasiparticle is formulated as
+    \[
+      \hat G_{k\uparrow}^\text{ret}(E)
+    = \ab*<\braket<\rho_{k\uparrow};\rho_{k\uparrow}^\dagger>>_E
+    = -\iu \int_{-\infty}^\infty \d t \upe^{\iu Et} \theta(t)
+      \braket<\{\rho_{k\uparrow}(t), \rho_{k\uparrow}^\dagger(0)\}>.
+    \]
+    where we used the ``God-Given'' unit to omit the $\hbar$, and use the
+    Heaviside step function to complete the integral range to the whole
+    time-axis. Apply the equation of motion for the retarded Green's function
+    \[
+      E \hat G_{k\uparrow}^\text{ret}(E)
+    = \braket<\{\rho_{k\uparrow}, \rho_{k\uparrow}^\dagger\}>
+    + \ab*<\braket<[\rho_{k\uparrow}, \mathcal H^*]; \rho_{k\uparrow}^\dagger>>
+    = 1 + E_k \ab*<\braket<\rho_{k\uparrow};\rho_{k\uparrow}^\dagger>>_E
+    = 1 + E_k \hat G_{k\uparrow}^\text{ret}(E),
+    \]
+    where $\{\rho_{k\uparrow}, \rho_{k\uparrow}^\dagger\} = 1$.
+    Rearrange the equation of motion, we have
+    \[
+      (E - E_k) \hat G_{k\uparrow}^\text{ret}(E) = \identity, \quad
+      \hat G_{k\uparrow}^\text{ret}(E) = \frac1{E - E_k + \iu0^=+}
+    \]
+    where the $\iu0^+$ enforces retarded boundary conditions.
+    \item We have already calculated the retarded Green's function
+    \[
+      \hat G_{k\uparrow}^\text{ret}(E)
+    = \ab*<\braket<\rho_{k\uparrow};\rho_{k\uparrow}^\dagger>>_E^\text{ret}.
+    \]
+    So, similarly, we can replace $\rho_{k\uparrow}$ and $\rho_{k\uparrow}$
+    with $a_{k\uparrow}$, $a_{-k\downarrow}$ and their conjugates.
+    By substituting the inverse transformations obtained in (a)
+    \[
+      \begin{array}{l@{~}c@{~}l@{\quad} l@{~}c@{~}l@{\quad}}
+        a_{k\uparrow}^\dagger & = &
+        u_k \rho_{k\uparrow}^\dagger    + v_k \rho_{-k\downarrow}, &
+        a_{-k\downarrow}^\dagger & = &
+        u_k \rho_{-k\downarrow}^\dagger - v_k \rho_{k\uparrow},\\
+        a_{k\uparrow} & = &
+        u_k \rho_{k\uparrow}            + v_k \rho_{-k\downarrow}^\dagger, &
+        a_{-k\downarrow} & = &
+        u_k \rho_{-k\downarrow}         - v_k \rho_{k\uparrow}^\dagger.
+      \end{array}
+    \]
+    we can obtain the following Green functions
+    \[
+      \begin{array}{l@{~}c@{~}l@{~}c@{~}l@{\quad}l}
+        G_{\uparrow\uparrow}^\text{ret}(k, E)
+      & = & \ab*<\braket<a_{k\uparrow}; a_{k\uparrow}^\dagger>>
+      & = & \frac{u_k^2}{E - E_k + \iu0^+} + \frac{v_k^2}{E + E_k + \iu0^+},
+      & \text{Normal Green's function},\\
+        G_{\downarrow\downarrow}^\text{ret}(k, E)
+      & = & \ab*<\braket<a_{k\downarrow}; a_{k\downarrow}^\dagger>>
+      & = & \frac{u_k^2}{E - E_k + \iu0^+} + \frac{v_k^2}{E + E_k + \iu0^+},
+      & \text{Normal Green's function},\\
+        G_{\uparrow\downarrow}^\text{ret}(k, E)
+      & = & \ab*<\braket<a_{k\uparrow}; a_{-k\downarrow}>>
+      & = & -\frac\Delta{E^2 - E_k^2 + \iu0^+},
+      & \text{Anomalous Green's function},\\
+        \tilde G_{\uparrow\downarrow}^\text{ret}(k, E)
+      & = & \ab*<\braket<a_{k\uparrow}^\dagger; a_{-k\downarrow}^\dagger>>
+      & = & \frac\Delta{E^2 - E_k^2 + \iu0^+},
+      & \text{Anomalous Green's function},
+      \end{array}
+    \]
+    and other combinations vanish due to symmetry.
+  \end{enumext}
+\end{solution}

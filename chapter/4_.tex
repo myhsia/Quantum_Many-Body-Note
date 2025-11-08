@@ -1,0 +1,356 @@
+% !TeX root = ../main.tex
+
+\chapter{Model Hamiltonians}
+
+\section{Hierarchy of Hamiltonians}
+
+For solids like
+\[\cdots ~ \circ ~ \circ ~ \circ ~ \circ ~ \circ ~ \circ ~ \cdots\]
+$\sum_i N(R_i) \to$ periodic potential ($\leftarrow$ single electron $\leftrightarrow quantum geroetry \to $ phonons).
+
+$h_0 \xrightarrow{a\to0}\pdif x \to k(-\infty,+\infty) \in (-\frac\pi a,\frac\pi a) \to$ Móire $N l m$
+
+\section{Pariser-Parr-Pople Model (tight-binding + interaction)}
+
+\subsection{Hydrogen molecule}
+
+For two hydrogen atoms
+\begin{center}
+\begin{tikzpicture}
+  \draw (-1,-1) cos (0,0) sin (1,1) cos (2,0) sin (3,-1) ;
+\end{tikzpicture}
+\end{center}
+\[h_0 = (-\frac{\nabla_x^2}{2m}),~ \nu(x_1,x_2)\]
+\[h_0 = \sum_{1,2,...,n} \hat n_i(\epsilon_n^0) \epsilon_N^0 \to \epsilon(\hat n_1 + \hat n_2)
+  + \sum_{\sigma,\sigma',nm}T_{1n}(R) (d_{1n\sigma}\dagger d_2n\sigma + d_{2M_\sigma'}d_{M_\sigma})\]
+$\ket|\varphi_1^n>$, $\ket|\varphi_2^n>$. $\braket<\varphi_1^n|n_0|\varphi_2^m>$.
+
+$h_\text{int} = v(\hat n_{1\uparrow}n_{1\downarrow} + \hat n_{2\uparrow}n_{2\downarrow}) + \nu_{12}(\hat n_1 - 1)(\hat n_2 - 1)$.
+
+\section{Ammonia \ce{NH3}}
+
+\section{Bloch electrons in 2nd Quantization}
+
+Single particle basis: Bloch state $\ket|\bm k\sigma>$. Wave function $\braket<\bm r|\bm k\sigma> = \psi_{\bm k\sigma}(\bm r)$, $\psi_k = u_k(r)\upe^{\iu\bm k\cdot r}$
+
+For single particle Hamiltonian
+\begin{equation}
+    \mathcal H_0 =  \sum_{\substack{k,\sigma\\k',\sigma'}}
+                      \braket<k\sigma|h_0|k'\sigma'>d_k^\dagger d_{k'\sigma'}
+    \Rightarrow \sum_{k\sigma} \epsilon(k) d_{k\sigma}^\dagger d_{k\sigma}
+\end{equation}
+For tight-binding $\sum_{ij}t_{ij} \ketbra|i><j| $
+\begin{equation}
+  H_0 = \sum_{\substack{\sigma\sigma'\\ij}}
+        T_{ij\sigma\sigma'}\hat d^\dagger_{i\sigma}\hat d_{j\sigma'}
+\end{equation}
+\begin{equation}
+  \braket<r|\bm k\sigma> \Leftrightarrow \braket<r|i\sigma>
+\end{equation}
+which is called \emph{(Maximally-localized) Wannier function}: exponentially atomic.
+
+\subsection{Generic lattice}
+
+The hamiltonian
+\begin{equation}
+  \mathcal H_0 = \sum_{ij} t_{ij} c_{i\sigma}\dagger c_{j\sigma} + \sum_i \epsilon_0 c_i^\dagger c_i,~
+  H = \sum_k c_{k\alpha}^\dagger H_{\alpha\beta}\hat C_{k\beta},~
+  \hat C_k = \frac1{\sqrt N} \sum_{i,\alpha} \upe^{-\iu \bm k (\bm R + \bm b_\alpha)} \hat c_{i, \bm b\alpha}
+\end{equation}
+Here,
+\[
+  \bm R_{i,A} = \sum_{n_1,n_2} n_1 \bm a_1 + n_2 \bm a_2 + \bm b_A,~ \bm R_{i,B}
+= \sum_{n_1,n_2} n_1 \bm a_1 + n_2\bm a_2 + \bm b_B,~ \bm b_A
+= (a,0), ~ \bm b_B = (0,1)
+\]
+$\alpha,\beta$: sublattice, spins; orbitals index.
+
+\subsection{Graphene}
+
+\begin{equation}
+  \bm  a_1 = \frac a2(3,\sqrt3), ~ \bm a_2 = \frac a2(3,-\sqrt3),~
+  \bm b_B = a(1,0),~ \delta_1 = \bm a_1 + \bm b_B,~ \delta_2 = \frac a2(1 - \sqrt3),~ \delta_3 = a(1,0).
+\end{equation}
+\begin{equation}
+  \mathcal H = -t\sum (a_i^\dagger b_j + \text{h.c.})
+\end{equation}
+while $a_i = C_{R_i,A}$, $b = C_{R_i,B}$, and $h_k \approx \sum_\delta \upe^{\iu k\delta} + \upe^{-\iu k\delta}$
+Then
+\[
+  H =
+  \begin{pmatrix}
+    a_k^\dagger & b_k^\dagger
+  \end{pmatrix}
+  \begin{pmatrix}
+    0 & h_k\\
+    h_k & 0
+  \end{pmatrix}
+  \begin{pmatrix}
+    a_k\\b_k
+  \end{pmatrix}
+\]
+
+pumping: \tikz[baseline]{\draw (0,0) rectangle (1,1);}
+
+\begin{equation}
+  h_k = t \ab[\upe^{i(1,0) \cdot \bm k} + \upe^{-\iu(1,0) \cdot \bm k} + \upe^{\iu(0,1) \cdot \bm k} + \cdots] = -2t(\cos k_x + \cos k_y)
+\end{equation}
+and
+\begin{equation}
+  H_k = -\sum 2t(\cos k_x + \cos k_y) c_k^\dagger c_k
+\end{equation}
+
+$h_k$ near some point (Dirac point): $h_k \sim (\bm k - \bm K) \pdv{h_k}k$, so it can be written as $h_k \sim \bm v_F \cdot \delta \bm k \leftrightarrow \pdif{\bm x}$
+
+\subsection{Flat-bannd}
+
+$h_k = \text{const}$ now.
+
+Landau levels
+
+Landau gauge: 
+
+Symmertic Gauge $\ket|\phi_{LG}> \Rightarrow \sum \ket|\Phi_{SG}>$
+
+magnetic translation $T_x$, $T_y$: $a_x, a_y \propto \dot l_b$
+
+\subsection{Electron phonon coupling: BCS}
+
+Hamiltonian with solid:
+\begin{equation}
+  \mathcal H_\text{solid}
+  \begin{cases}
+    \mathcal H_\text{phono} = \sum_{\bm q} \mathcal E(\bm q) b_q^\dagger b_q\\
+    \mathcal H_\text{Bloch} = \sum_k \mathcal E(k) c_k^\dagger c_k
+  \end{cases}
+\end{equation}
+
+$V(R_i,x_i)$
+
+\begin{equation}
+  H_{e-p} = \sum_{k_1} \sum_{q \bm G} T (b_q^\dagger + b_{-q}^\dagger) \hat a_{k+q+\bm G}^\dagger \hat a_k
+\end{equation}
+\[
+  \bar x_j^* = \frac1n \sum_{i=1}^n x_{ij} - \bar x_j
+= \frac1n \ab(\sum_{i=1}^n x_{ij} - \sum_{i=1}^n \bar x_j)
+\]
+
+\section{QM identical partical}
+
+\begin{enumerate}
+  \item $\ket|1:\phi_1>$, $\ket|2:\chi_2>$ -> occupation num. of condition
+  \begin{itemize}
+    \item $\ket|n_{\phi_1}, n_{\chi_2}>$
+    in real space: $\phi \to \hat x$;
+  \end{itemize}
+  After interchange particle label, there should be a sign: $(\pm 1)^p$: minus - fermion; boson: trivial.
+  so we have
+  \[
+    (-1)^p \leftrightarrow [d_n^\dagger, d_m]_\mp:
+    d_n^\dagger d_m \mp d_m d_n^\dagger
+  \]
+  $[d_n, d_m]_\mp = 0 = [d_n^\dagger, d_m^\dagger]$.
+  $d_n^\dagger d_m^\dagger \ket|0> = -d_m^\dagger d_n^\dagger \ket|0>$
+\end{enumerate}
+
+\section{Electron-phonon coupling}
+
+$V_\text{ion-ion} = \sum V(R_i - R_j) \Rightarrow \sum_q \omega_q a_q^\dagger a_q$,
+
+$V_\text{el-el} = \sum V(r_i - r_j) \Rightarrow \sum_i u n_{i\sigma} n_{iq} = + \cdots \sum_{ij} V n_i n_j$,
+
+$V_\text{el-ion} = \sum V(R_i - r_j) \Rightarrow \sum_{\sigma q} (b_q^{-1} + b_{q-}) c_{k+q\sigma}^+ c_{k\sigma}$
+
+corsplication: feed back effect (self-consistent eq.) == DFT
+
+
+\hrule
+
+\[
+  H_{ep} = \sum_{kq\sigma}T_{kq} (b_q + \hat b_{-q})G_{k+q,\sigma}^\alpha a_{k\sigma}
+\]
+$MW_\text{ene}$-field BCS
+
+\section{Effective$H_{a,g(\text{femons})}$}
+
+
+\section{canonical transformaission}
+
+Also called: Foldy-Wyen
+
+\section{effection H canonical transf}
+
+\[H = H_0 + \delta H\]
+Broad prodive $\hat T = \upe^{-\hat{\mathcal S}} \mathcal H \upe^{\mathcal S}$.
+Expand: \[
+\tilde H = H + [H,\hat S]_- + \frac1{2!} [[\hat H,\hat S]_-S]_-
+= H_0 + \delta H + [H_0,\hat S] + [\delta H, \hat S]
+\]
+find $\hat S: [H_0,\hat S] + \Delta H = 0$. S is usually called generator.
+
+$\Rightarrow H_0 + [\Delta H, S] + \frac1{2!}[([H_0,S] + [\delta H,S]),S]
+= H_0 + [\delta H, S] + \frac12 [-\delta H,S] + O(S^2) = H_0 + \frac12[\delta H,S]$
+
+So, from $\delta H$ u get. $H = H_0 + \frac12[\delta H,S]$.
+
+\section{For el-ph coupling $\mathsf{\hat S
+  = \sum _{kq\sigma} \tau_q (x b_q + y b_{-q}^\dagger) a_{k+ q\sigma}^* a_k}$}
+\[
+  H_0 = \sum \epsilon_k a_{k\sigma}^\dagger a_{k\sigma}
+\]
+The commutator to $S$ is
+\begin{align*}
+  [H_0, \hat S] & = \sum \tau_q \{x(\epsilon(k+1) - \epsilon(k) - \hbar \omega_q)b_q + y(\epsilon(k+q) - \epsilon(k) + \hbar\omega_q) b_{-q}^\dagger\} a_{k+q\sigma}^\dagger a_{k\sigma}\\
+& = -H_\text{el-ph} \Rightarrow
+  \begin{cases}
+    x = (\epsilon(k) - \epsilon(k+1) + \hbar (\omega)q^{-1})\\
+    y = (\epsilon(k) - \epsilon(k+1) - \hbar (\omega)q^{-1})
+  \end{cases}
+\end{align*}
+then, the effective Hamiltonian
+\[
+  H_\text{eff} = \frac12 [\delta H,\hat S]
+= \frac12 \sum_{\substack{kk'\\q\sigma\sigma'}}
+  \tau_{-q} \tau_q (q-x) a_{k+q}^\dagger a_{k'-q} a_{k'\sigma'} a_{k\sigma}
+\]
+$x = \frac{1}{\epsilon(k) - \epsilon(k+q) - \hbar\omega_q} \approx \delta(\epsilon(k) - \epsilon(k+1) - \hbar\omega_q)$.
+
+Consider this $\delta$-function
+\[
+  \int \d E = \frac{1}{E \pm \hbar \omega_q} \delta(E - \hbar\omega_q)
+\]
+\[H_0 = \sum \epsilon_n a_n^\dagger a_n, \hat G = (E - H_0)^{-1} = G[E]\]
+Green's function:
+\[
+  (E - H_{ph})^{-1} = G_{Phi}
+\]
+\[
+  \tilde H = H_0 + H_{eff} = \sum_k \epsilon_k \tilde a_{k\sigma}^\dagger \tilde a_{k\sigma}
++ \frac12 \sum_{kk',q\sigma\sigma'} T_q T_{-q} (y-x) \tilde a_{k+q}^\dagger \tilde a_{k'-q}^\dagger \tilde a_{k'\sigma'} \tilde a_{k\sigma}
+\]
+\[\upe^{-\hat S} H_0 \upe^{\hat S} = \upe^{-S}a_k^\dagger (e^S e^{-S}) a_k \upe^{S}\]
+
+\[
+  \tilde a_k^\dagger = \upe^{-S} a_k^\dagger \upe^S = a^\dagger +
+  [a_k^\dagger,S] + ... = a_k^\dagger + \sum_q (x
+   b_q + y b_{-q})^\dagger,~
+  \tilde a_k = \upe^S a_k \upe^{-S}
+\]
+
+\section{From el-ph to BCS}
+
+at low-T, $k \in near ES$. $|T_q|^2(y - x) \sim < 0$, means for particular part of fermion, the attraction become attractive.
+\[
+  H = \sum_k \epsilon_k c_{k\sigma}^\dagger c_{k\sigma} - v \sum_{kk'} c_{k\uparrow}^+ c_{k\downarrow}^+ c_{k'\downarrow} c_{k'\uparrow}.
+\]
+This is called Richardson = RCS model Inone0meanfield
+1. not a sc. qs => CFT
+2. prove bcs, superconductivity spontuneous sym. treaking: add some like 
+ Bogoliubov.
+
+ Meanfield BCS model.
+
+ SBB: $H_{GB} = \sum \epsilon_k c_{k\sigma}^\dagger c_{k\sigma}$
+ 
+ \section{Holstein model}
+
+ \begin{enumerate}
+  \item $H_c = \sum_s \omega_0 (a_s^\dagger a_s + \frac12)$
+  \item $H_\text{int} = -q \sum_{s\sigma} d_{s\sigma}^\dagger d_{s\sigma} (a_s + a_s^*)$
+  \item $H_{el} = \sum_i (t_{ij} d_{is\sigma}^\dagger d_{js\sigma} + h.c.)$
+  \item Strong compling limi. Leads to heavy poloron.
+  \item Lang-Firsov transformation,(c.t.)
+  \[
+    \hat S = -\iu \frac g{\omega_0} \sum \hat n_{s\sigma} (a_s^\dagger - a_s)
+  \]
+  \[
+    H_{cp} = T\sum (B_s^\dagger B_{{S}})
+  \]
+  $\hat B_s = \upe^{q/\omega_0}$
+ \end{enumerate}
+
+ \section{elec-el interaction}
+
+ \[V_{el-el} = \sum V(r_i - r_j)\].
+
+ \[
+  \Rightarrow H_A = \sum \epsilon_k c_{k\sigma}^{-1} c_{k\sigma}
++ u \hat n_{d\uparrow}n_{d\downarrow} + \sum \epsilon_d d^\dagger d
++ V \sum k (c_{k\sigma}^\dagger d \sigma + d^\dagger \sigma c_{k\sigma})
+\]
+\[
+ S = \sum_{k\sigma} (A_k c_{k\sigma}^\dagger d_\sigma - A_k d_\sigma^\dagger c_{k\sigma}) + \sum (B_A d_\sigma c_k^\dagger - B_k^\dagger c_{k\sigma d_\sigma^\dagger})
+\]
+\[
+  A_K = \frac{V_k}{\epsilon_k - \epsilon d},~ B_k = \frac{V_k}{\epsilon_k - (\epsilon_d + b)}
+\]
+then
+\[
+ H_\text{eff} = \frac12 [\delta H, S] = \frac12 [\delta H, S(H_0)]
+\]
+while $H_0 = H_c + H_{n,d}$.
+\[
+  H_\text{eff} = J_k \bm S_d \cdot \bm S_{c,o}
+= \sum_{kk'} J_{kk'} (\bm S_d \cdot \sum_{\alpha\beta} c_{k'\alpha}^\dagger \frac{\bm \sigma_{\alpha\beta}}2 c_{k\beta} + \frac14 \sum_\sigma c_{k'\sigma}^\dagger c_{k\sigma})
+\]
+\[
+  \bm S_d = \sum_{\alpha\beta} \hat d_\alpha \frac{\sigma_{\alpha\beta}}{2} \hat d_\beta
+\]
+So, 
+\[
+  S_z = \frac12 (d_\uparrow^\dagger d_\uparrow
+              - d_\downarrow^\dagger d_\downarrow),~
+  S_z^+ =
+  \begin{pmatrix}
+    0 & 1\\0 & 0
+  \end{pmatrix} = d_\uparrow^\dagger d_\downarrow,
+  S^- =
+  \begin{pmatrix}
+    0 & 0\\1 & 0
+  \end{pmatrix} = d_\downarrow^\dagger d_\uparrow
+\]
+\begin{framed}
+  \[\text{Hkondo-imparity} = J_k \bm S_d \bm S_{c,o}\]
+\end{framed}
+for $J_K > 0$, $J_K = \frac{4V^2}{U}$.
+
+After the treatment, from anderson module to kondo modo:
+\[
+  H_{And} \to H_{Kondo m} = \sum \epsilon_k c_k^\dagger c_k + J_k \bm S_\alpha \cdot \bm S_{c,N}
+\]
+$S_d$ is free moment, formation of a local moment.
+
+$J_k$ can become negative, so change the kondo limit, Anti FM -- compling,
+to becoma a FM.
+
+\section{Hubbard model}
+
+\begin{equation}
+  H = \sum_{\sigma k} \epsilon_k c_{k\sigma}^\dagger c_{k\sigma} + N \sum_i (n_\uparrow -\frac12)(n_\downarrow -\frac12) + (\sum_{\sigma k} -\mu c_{k\sigma}^\dagger c_{k\sigma})
+= -\sum_{ij\sigma} t_{ij} c_{i\sigma}^\dagger c_{j\sigma}
+\end{equation}
+
+\subsection{Schrieff-Wolff transformation (C.T.)}
+
+For $n = 1$, deal with Heisenberg model
+\begin{equation}
+  H_{Heis} = \sum_{ij} J_{ij} \bm S_i \bm S_j
+\end{equation}
+while $J_{ij} = \frac{4t_{ij} t_{ji}}N = \frac{4t^2}{N}$.
+
+When doping, $t-J$ model
+\[
+  H = \sum_{ij} t_{ij} \tilde{c_{ik}} \tilde c_{j\sigma} + \sum J \bm S_{i} \cdot \bm S_j.
+\]
+so-called Ggutzwillen projection, project out double-occupancy.
+
+Gutzwiller approximation $\delta \sum t \hat c_i^\dagger c_{j\sigma} + \sum J(1 - 2\delta) \bm S_i \cdot \bm S_j$.
+
+\section{Many layers of QMB problems}
+
+\begin{enumerate}
+  \item reduce degrees of freedom
+    (wrong way: CT, quasi particles; polaron)
+  \item methods to reduce DoF: link/crosscheck different methods
+  path tn: Effective theory EFT.
+\end{enumerate}
