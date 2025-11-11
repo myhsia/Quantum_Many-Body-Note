@@ -644,3 +644,217 @@ and there is none dissipative in the collisonless limit.
 
 The frequency $S_0 = \frac{\omega_0}{q v_F}$, i.e.,
 the disspresion relation of the collective eigenmode.
+
+\section{Non-equilibirum properties: linear response}
+
+Consider the time derivative to the number variable
+\begin{equation}
+  \odv*{\delta n_p(\bm r, t)}t =
+  \begin{cases}
+    0, & \to \text{Collisionless limit}, T \to 0\\
+    \identity[\delta n_p], & \to \text{Collision integral:
+      Inelastic CMP scattering (decay), or interaction v.s. collision}
+  \end{cases}
+\end{equation}
+
+\subsection{Inelastic quasi-particle scattering}
+
+For fermi liquid
+\begin{equation}
+  \Gamma = \frac1\tau \propto \epsilon^2 + \pi^2T^2k_B^2
+\end{equation}
+in Landau Fermi Temperature cd, $T \to 0$, $\epsilon \to 0$,
+then $\frac1\tau \to 0$, $\tau \to \infty$.
+
+The finite lifetime: at finite $T$, we have finite energy,
+\[
+  \sigma(a) = \frac1{\omega^2}.
+\]
+This decay happens is due to the ``particle-particle interaction''.
+We consider the case one particle traveling, then goes into multi particles,
+i.e.,
+\paragraph{Decay}
+\[
+  \begin{tikzpicture}
+    \node [circle] at (0,0) (a) {$a$};
+    \draw [<-] (a.west) --++ (-1,0) node [below] {$1$};
+    \draw [->] (a.west) --++ (1,.2) node [right] {$4$};
+    \draw [->] (a.west) --++ (1,0) node [right] {$3$};
+    \draw [<-] (a.west) --++ (1,0) node [right] {$\bar2$};
+  \end{tikzpicture} \quad
+  \hat V:\ v(q) c_4 c_3 c_2^\dagger; c_1^\dagger
+\]
+When it acts, to the left and right part, we have
+\[
+  \bra<\Psi_{43\bar2} = |\bra<\Psi_0|c_4c_3c_2^\dagger; \qq{and}
+  \ket|\Psi_1> = c_1^\dagger\ket|\Psi_0>
+\]
+respectively, where $\braket<\Psi_{43\bar2}|\Psi_1> \neq 0$,
+and $[H, n_p] = 0$.
+
+The correspondence between particle and hole (acts to Fermi state)
+\begin{equation}
+  c_{p<p_F}^\dagger\ket|FS> = 0, \qq{and} c_{-p>p_F} \ket|FS> = 0
+\end{equation}
+where we can define the operator
+\[
+  \begin{cases}
+    \tilde \gamma_p = \begin{cases}
+      c_{p<p_F}^\dagger, \\
+      c_{-p>p_F}
+    \end{cases}
+  \end{cases}
+\]
+the minus sign is respected to the Fermi surface.
+which will always annihilate a state, also for the operator $\gamma_p^\dagger$,
+always create a state.
+\paragraph{Scattering}
+If we change the comma to the center, i.e.,
+\begin{equation}
+  \begin{tikzpicture}
+    \node [circle] at (0,0) (a) {$a$};
+    \draw [<-] (a.west) --++ (-1,.5) node [below] {$1$};
+    \draw [<-] (a.west) --++ (-1,-.5) node [below] {$2$};
+    \draw [->] (a.west) --++ (1,.5) node [below] {$3$};
+    \draw [->] (a.west) --++ (1,-.5) node [below] {$4$};
+  \end{tikzpicture} \quad
+  \hat V:\ v(q) c_4 c_3; c_2^\dagger c_1^\dagger
+\end{equation}
+which $c_4$ and $c_3$ act to the left, and the others acts to the right.
+Then, we have
+\[
+  a(1 \to \bar 2 + 3 + 4) = a(1 + 2; 3 + 4)
+\]
+From which we can obtain the samp matrix element $\hat\gamma_p^\dagger$
+\[
+  \braket<\Psi_0|c_4c_4;c_2^\dagger c_1^\dagger|\Psi_0>
+\]
+It is the same wherever the comma is.
+
+\subsection{Correspondence between between \& holes}
+
+The operator and its Hermite conjugate
+\[
+\begin{cases}
+  & \gamma \to c_p^\dagger, \quad \epsilon_p,\ p,\\
+  & \gamma^\dagger \to c_{-p}, \quad \epsilon_p,\ -p.
+\end{cases}
+\]
+where $p$ is measured with respect / relative to $k_F$.
+We have ``$1 \leftrightarrow 1$'' correspondence, need the same.
+
+\begin{remark}
+Since the Fermi surface form a circle,
+the area in and out the circle should have the same density of states.
+When $T \to 0$ (or $\epsilon \to 0$) valid, they have the same number of states.
+
+If we only take a small curve of the surface, then the difference
+$\Delta n_p - \Delta n_f \sim \kappa$, the curvature of the curve.
+Which is about \emph{Differential geometry}
+\[
+  \odv[2]{\rho}{p} \sim K^2
+\]
+\end{remark}
+
+The Fermi Golder rule
+\begin{equation}
+  I[\delta n_p] = \frac{2\pi}{\hbar} \sum_{2,3,4} |a(12; 34)|^2
+    [-n_1(1 - n_4)(1 - n_3)n_2 + (1 - n_1)(1-n_2)n_3n_4] (2\pi\hbar)^3
+    \delta(p_1 + p_2 - p_3 - p_4)
+    \delta(\epsilon_1 + \epsilon_2 - \epsilon_3 - \epsilon_4)
+\end{equation}
+where the counter is just counting the \emph{available states}.
+\begin{center}
+  \begin{tikzpicture}
+    \node at (0,0) (1) {$1$};
+    \draw [->] (1) --++ (1,.5) node [right] {$2$};
+    \draw [->] (1) --++ (1,0) node [right] {$3$};
+    \draw [->] (1) --++ (1,-.5) node [right] {$4$};
+  \end{tikzpicture}, \quad
+  also for the Hermite conjugate, i.e., the inverse process.
+\end{center}
+$I[\delta n_p]$ is the dymanical process of
+$n_1 \begin{cases}
+  -mn_1 \to\\
+  +pn_1 \to
+\end{cases} n_1$.
+at thermal equilibrium $I[\delta n_p] = 0$.
+\[
+  \delta n_p = n_p - n_p^{(0)} \qq{caused by $\delta^{(0)}\epsilon_p$}
+\]
+Then
+\[
+  I[\delta n_p] = \underbrace{-\Gamma \delta n_1}_\text{relaxion} + \cdots,
+\]
+where $\Gamma = -\fdv I/{n_1}$. Also, we have
+\begin{equation}
+  \Gamma = \frac{2\pi}{\hbar} \sum_{2,3,4} |a(1,2,3,4)|^2
+  [n_2^{(0)} (1 - n_3^{(0)}) (1 - n_4^{(0)}) +
+             (1 - n_2^{(0)})n_3^{(0)}n_4^{(0)}]
+\end{equation}
+The sum can be extend to integral
+\[
+  \sum_{234} \to \int_{(p_2,p_3,p_4)} \delta(\{p_i\})
+  \delta(\epsilon_1 + \epsilon_2 - \epsilon_3 - \epsilon_4) \int \d\epsilon
+\]
+Also, the sum term is proportion to
+\[
+  \sum_{2,3,4} |a(1,2,3,4)|^2 \propto |N^*(0)|^3
+\]
+and the residue proprotion to $\frac12 (\epsilon_1^2 + (\pi k_BT)^2)$.
+It can be written as
+\begin{equation}
+  \Gamma = (m^*)^3 \cdot \frac1{8\pi^4\hbar^6} \braket<\frac{W(0,\phi)}{2 \omega_0}>_\Omega [\epsilon^2 + (k_B\pi T)^2].
+\end{equation}
+where $W$ stands for the integral.
+
+\subsection{Kadowaki-Woods ratio}
+
+\begin{equation}
+  \rho(T) = \rho_0 + A_2T^2
+  \underbrace{\cancel{+ A_1T}}_{T \propto E_F \sim \qty{e4}\K/M}, \quad
+  \gamma = \frac{C_v}{T}\bigg|_{T\to0} \propto m^*
+\end{equation}
+The ratio
+\[
+  \frac{A_2}{\gamma^2} \sim \text{Const}
+\]
+\begin{center}
+  \begin{tikzpicture}
+    \draw [->] (0,0) -- node [below] {$\log \gamma$} (1.5,0);
+    \draw [->] (0,0) -- node [left] {$\log A_2$} (0,2);
+    \draw (.5,.5) -- (1.25,1.75);
+  \end{tikzpicture}
+\end{center}
+
+\subsection{Microscopic basis Landau Fermi Liquid Theory}
+
+Due to the GML theory
+\[
+  \ket|\phi> = U\ket|\Psi_0>, \quad
+  \ket|\tilde k\sigma> = U\ket|k\sigma>
+\xlongequal{canonical transition} Uc_k^\dagger\sigma U^\dagger\ket|\phi>
+\]
+Denote
+\[
+  Z_k = |\braket<\tilde k_0|c_{k\sigma}^\dagger|\phi>|^2
+\]
+at non0interacting $Z_k = 1$.
+\begin{gather*}
+  c_{k\sigma}^\dagger \approxeq \sqrt{Z_k} a_{k\sigma}^\dagger
++ \sum_{k_4k_3 = k_2 + k} A_1 (\quad) a_k^\dagger a_3^\dagger a_2 + \cdots\\
+  a_{k\sigma}^\dagger \approxeq \frac1{\sqrt{Z_k}} c_{k\sigma}^\dagger
++ \sum c_4^\dagger c_3^\dagger c_2 + \cdots
+\end{gather*}
+Then, the factor
+\begin{equation}
+  A(k, \omega) \approxeq \frac1\pi \Im[G(k, \omega - \iu\delta)]
+= \underbrace{\text{qp peak}}{Z_{k\sigma} \delta(\omega - \epsilon_k)}
++ \sum_{\lambda \neq k\sigma} |M_\lambda|^2 \delta(\omega. - \epsilon_\lambda)
+\end{equation}
+The sum term is continuum, incoherent port.
+The curve of $A$ respect to $\omega$ becomes from ``square'' to a peek after interaction.
+\begin{center}
+  \includegraphics[width = .75\linewidth]{image-1614}
+\end{center}
+with $m/m^* \sim Z_{k_F}$.
