@@ -1,19 +1,9 @@
 --[==========================================[--
-          L3BUILD FILE FOR [PHY5047]QMB
-     Check PDF File & Directory After Build
+         L3BUILD FILE FOR "[PHY5047QMB"
 --]==========================================]--
 
---[==========================================[--
-                Basic Information
-             Do Check Before Upload
---]==========================================]--
 module           = "QMB"
 version          = "2025-11-16"
-
---[==========================================[--
-               Build, Pack Release
-         Do not Modify Unless Necessary
---]==========================================]--
 ctanzip          = module
 excludefiles     = {"*~"}
 suppdirs         = {"chapter", "media"}
@@ -34,17 +24,17 @@ function tex(file,dir,cmd)
   cmd = cmd or typesetexe .. " " .. typesetopts
   return run(dir, cmd .. file)
 end
--- function copyctan()
---   local pkgdir = ctandir .. "/" .. ctanpkg
---   mkdir(pkgdir)
---   for _,main in ipairs({typesetsuppfiles, pdffiles}) do
---     for _,glob in pairs(main) do
---       cp(glob, typesetdir, pkgdir)
---     end
---   end
---   local pkgsuppdir = ctandir .. "/" .. ctanpkg .. "/" .. supportdir
---   mkdir(pkgsuppdir)
---   for _,supptab in pairs(typesetsuppfiles) do
---     cp(supptab, supportdir, pkgsuppdir)
---   end
--- end
+function copyctan()
+  local pkgdir = ctandir .. "/" .. ctanpkg
+  mkdir(pkgdir)
+  for _,main in ipairs({typesetsuppfiles, pdffiles}) do
+    for _,glob in pairs(main) do
+      cp(glob, typesetdir, pkgdir)
+    end
+  end
+  local pkgsuppdir = ctandir .. "/" .. ctanpkg .. "/" .. supportdir
+  mkdir(pkgsuppdir)
+  for _,supptab in pairs(typesetsuppfiles) do
+    cp(supptab, supportdir, pkgsuppdir)
+  end
+end
