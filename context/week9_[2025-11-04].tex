@@ -6,8 +6,8 @@
   Calculate the Landau parameters to leading order in $\lambda_{1,2}$ for a
   Fermi liquid with the contact interactions
   \begin{enumext}
-    \item $V(x - x') = \lambda_1\delta^{(3)}(x - x')$.
-    \item $V(x - x') = -\lambda_2\nabla^2\delta^{(3)}(x - x')$
+    \item $V(\bm x - \bm x') = \lambda_1\delta^{(3)}(\bm x - \bm x')$.
+    \item $V(\bm x - \bm x') = -\lambda_2\nabla^2\delta^{(3)}(\bm x - \bm x')$
           (so that $V(q) = \lambda_1 q^2$ in Fourier space).
     \item Taking the results of (a) and (b) literally, sketch the regions of
           the $\lambda_1$, $\lambda_2$ phase diagram where the Fermi surface
@@ -15,8 +15,119 @@
   \end{enumext}
 \end{problem}
 \begin{solution}\leavevmode
+  For a spin-independent two-body interaction $V(\bm q)$,
+  the Landau interaction function in the forward direction
+  \[
+    f_{\bm p\sigma, \bm p'\sigma'}
+  = \ab[V(0) - V(|\bm p - \bm p'|)] \delta_{\sigma\sigma'}.
+  \]
+  Decomposing into spin-symmetric $f^s$ and spin-antisymmetric $f^a$ parts
+  \[
+    f^s(\theta) = V(0) - \frac12 V(q), \quad
+    f^a(\theta) = -\frac12 V(q),
+  \]
+  where $q = |\bm p - \bm p'| = 2k_F \sin(\theta/2)$,
+  $\theta = \braket<\bm p, \bm p'>$. Expanding in Legendre polynomials
+  \[
+    f^s(\theta) = \sum_l f_l^s P_l(\cos\theta), \quad
+    f^a(\theta) = \sum_l f_l^a P_l(\cos\theta).
+  \]
+  Hence, the Landau parameters are
+  \[
+    F_l^s = N(0) f_l^s, \quad F_l^a = N(0) f_l^a.
+  \]
+  where $N(0) = \frac{m k_F}{2\pi^2}$ is the density of states per spin at the
+  Fermi level.
   \begin{enumext}
-    \item 
+    \item In the case of
+    $V(\bm x - \bm x') = \lambda_1 \delta^{(3)}(\bm x - \bm x')$.\\
+    Do the Fourier transform
+    \[
+      V(\bm q) = V(0) = \lambda_1,
+    \]
+    then
+    \[
+      f_l^s(\theta) = f_0^s = \lambda_1 - \frac{\lambda_1}{2}
+    = \frac{\lambda_1}{2}, \quad
+      f_l^a(\theta) = f_0^a = -\frac{\lambda_1}{2}.
+    \]
+    Hence, the Landau parameters are
+    \[
+      F_0^s = \frac{N(0)\lambda_1}{2},\quad
+      F_0^a = -\frac{N(0)\lambda_1}{2},\quad
+      F_{l>0} = 0.
+    \]
+    \item In the case of
+    $V(\bm x - \bm x') = -\lambda_2\nabla^2\delta^{(3)}(\bm x - \bm x')$.\\
+    Do the Fourier transform
+    \[
+      V(\bm q) = \lambda_2 q^2, \qq{and} V(0) = 0,
+    \]
+    then
+    \[
+      f^s(\theta) = f^a(\theta) = -\frac{\lambda_2}{2} q^2
+    \xlongequal{q^2 = 2k_F^2 (1 - \cos\theta)}
+      -\lambda_2 k_F^2 (1 - \cos\theta).
+    \]
+    Expanding in Legendre polynomials
+    \[
+      f^s(\theta) = -\lambda_2 k_F^2 + \lambda_2 k_F^2 \cos\theta
+    = -\lambda_2 k_F^2 + \lambda_2 k_F^2 P_1(\cos\theta),
+    \]
+    Then
+    \[
+      f_0^s = f_0^a = -\lambda_2 k_F^2, \quad
+      f_1^s = f_1^a = \lambda_2 k_F^2, \quad f_{l \geq 2} = 0.
+    \]
+    Hence, the Landau parameters are
+    \[
+      F_0^s = F_0^a = -N(0)\lambda_2 k_F^2,\quad
+      F_1^s = F_1^a = N(0)\lambda_2 k_F^2,\quad F_{l>1} = 0.
+    \]
+    \item When both interactions are present, the Landau parameters add
+    linearly
+    \[
+      F_0^s = \frac{N(0)\lambda_1}{2} - N(0)\lambda_2 k_F^2, \quad
+      F_0^a = -\frac{N(0)\lambda_1}{2} - N(0)\lambda_2 k_F^2, \quad
+      F_1^s = F_1^a = N(0)\lambda_2 k_F^2.
+    \]
+    The Pomeranchuk stability conditions are
+    \[
+      1 + \frac{F_l^s}{2l + 1} > 0, \quad 1 + \frac{F_l^a}{2l + 1} > 0.
+    \]
+    For $l = 0$: $1 + F_0^s > 0$, $1 + F_0^a > 0$;
+    For $l = 1$: $1 + \frac{F_1^s}{3} > 0$, $1 + \frac{F_1^a}{3} > 0$.
+    Define two coefficients $A = \frac{N(0)}{2}$, $B = N(0) k_F^2$, then
+    \[
+      F_0^s = A\lambda_1 - B\lambda_2, \quad
+      F_0^a = -A\lambda_1 - B\lambda_2, \quad
+      F_1^s = F_1^a = B\lambda_2.
+    \]
+    Let $x = A\lambda_1$, $y = B\lambda_2$, the stability conditions become
+    \begin{enumext}[columns = 3]
+      \item $1 + x - y > 0$
+      \item $1 - x - y > 0$
+      \item $1 + \frac y3 > 0$.
+    \end{enumext}
+    \begin{paracol}{2}
+    Do the linear programming, the stable region in the $(x, y)$-plane is a
+    triangle on the right.
+    In terms of $\lambda_1, \lambda_2$, the stable region is inside the triangle
+    with vertices
+    \[
+      \ab(-\frac4A, -\frac3B), \quad \ab(\frac4A,-\frac3B), \quad
+      \ab(0,\frac1B).
+    \]
+    \switchcolumn \centering
+    \begin{tikzpicture}[scale = .4]
+      \draw [->] (-5,0) -- (5,0) node [below] {$x$};
+      \draw [->] (0,-4) -- (0,2) node [left] {$y$};
+      \filldraw [pattern = bricks, pattern color = violet]
+        (-4,-3) node [below] {$(-4,-3)$} --
+        (4,-3)  node [below] {$(4,-3)$} -- (0,1)
+       node [right] {$(0,1)$} -- cycle;
+    \end{tikzpicture}
+    \end{paracol}
   \end{enumext}
 \end{solution}
 
@@ -35,7 +146,7 @@
     \mathcal H[\mathbf A_N, \mathbf W]
   = \sum_\sigma \int \d^3x \frac1{2m} \psi_\sigma^\dagger(x)
     [(-\iu\hbar\nabla - \mathbf A_N - \sigma\mathbf W)^2] \psi_\sigma(x)
-  + \hat V
+  + \hat V.
   \]
   Whereas $\mathbf A_N$ couples to the current of particles, $\mathbf W$
   couples to the ($z$ component of the) spin current.
@@ -43,25 +154,25 @@
   \begin{enumext}
     \item By comparing the bare shift of the energies
     \[
-      \delta\epsilon_{\mathbf p\sigma}^{(0)}
-    = -\frac{\mathbf p}{m} \cdot (\mathbf A_N + \sigma \mathbf W)
+      \delta\epsilon_{\bm p\sigma}^{(0)}
+    = -\frac{\bm p}{m} \cdot (\mathbf A_N + \sigma \mathbf W),
     \]
-    with the shift that result from interaction feedback,
+    with the shift that results from interaction feedback,
     \[
-      \delta\epsilon_{\mathbf p\sigma}
-    = -\frac{\mathbf p}{m^*} \cdot \mathbf A_N
-    - \sigma \frac{\mathbf p}{m_s^*} \cdot \mathbf W,
+      \delta\epsilon_{\bm p\sigma}
+    = -\frac{\bm p}{m^*} \cdot \mathbf A_N
+    - \sigma \frac{\bm p}{m_s^*} \cdot \mathbf W,
     \]
     show that there are two different mass renormalizations,
-    \begin{align*}
-      \frac{m}{m^*}   & = \frac1{1 + F_1^s},\\
-      \frac{m}{m_s^*} & = \frac1{1 + F_1^a}.
-    \end{align*}
+    \[
+      \frac{m}{m^*} = \frac1{1 + F_1^s}, \quad
+      \frac{m}{m_s^*} = \frac1{1 + F_1^a}.
+    \]
     \item Show that, when the Fermi liquid is polarized, the masses of the
     ``up'' and ``down'' quasiparticles are now different, and given by
     \[
       \frac1{m_\sigma^*} = \frac1m\ab[\frac1{1 + F_1^s} + \frac M{1 + F_1^a}],
-      \quad (\sigma = \uparrow, \downarrow)
+      \quad (\sigma = \uparrow, \downarrow),
     \]
     where the magnetization $M = n_\uparrow - n_\downarrow$ is the difference of
     ``up'' and ``down'' densities.
@@ -69,6 +180,87 @@
 \end{problem}
 \begin{solution}\leavevmode
   \begin{enumext}
-    \item 
+    \item \begin{proof} \let \qed \relax
+    In the steady state, the distribution function is a shifted
+    Fermi sphere, then
+    \[
+      \delta n_{\bm p\sigma} = -\frac{\partial n^0}{\partial \epsilon}
+        (\bm p \cdot \bm u_\sigma),
+    \]
+    where $\bm u_\sigma$ is the drift velocity for $\sigma$.
+    Substitute it and $\delta\epsilon_{\bm p\sigma}^{(0)}$ to get the full
+    quasiparticle energy shift
+    \[
+      \delta\epsilon_{\bm p\sigma}
+    = \delta\epsilon_{\bm p\sigma}^{(0)}
+    + \sum_{\bm p'\sigma'} f_{\bm p\sigma,\bm p'\sigma'}
+      \delta n_{\bm p'\sigma'}
+    = -\frac{\bm p}{m} \cdot (\mathbf A_N + \sigma \mathbf W)
+    - \sum_{\bm p'\sigma'} f_{\bm p\sigma,\bm p'\sigma'}
+      \frac{\partial n^0}{\partial \epsilon'}
+      (\bm p' \cdot \bm u_{\sigma'}).
+    \]
+    Due to isotropy, the interaction term simplifies. The Landau interaction
+    function is decomposed into spin-symmetric and spin-antisymmetric parts
+    \[
+      f_{\bm p\sigma,\bm p'\sigma'}
+    = f^s(\theta) \delta_{\sigma\sigma'} + f^a(\theta) (\sigma \sigma').
+    \]
+    where $\theta$ is the angle between $\bm p$ and $\bm p'$.
+    Expanding in Legendre polynomials
+    \[
+      f^s(\theta) = \sum_l f_l^s P_l(\cos\theta), \quad
+      f^a(\theta) = \sum_l f_l^a P_l(\cos\theta).
+    \]
+    The Landau parameters are defined as:
+    \[
+      F_l^s = N(0) f_l^s, \quad F_l^a = N(0) f_l^a,
+    \]
+    where $N(0)$ is the density of states at the Fermi level per spin.
+    After evaluating the angular integrals, the energy shift becomes
+    \[
+      \delta\epsilon_{\bm p\sigma} = -\frac{\bm p}{m} \cdot (\mathbf A_N
+    + \sigma \mathbf W) + \frac{1}{3}
+      \ab[F_1^s (\bm p \cdot \bm u_{\sigma})
+      + F_1^a \sigma (\bm p \cdot (\bm u_{\uparrow} - \bm u_{\downarrow}))].
+    \]
+    In the steady state, the effective force on quasiparticles vanishes, i.e.,
+    $\delta\epsilon_{\bm p\sigma} = \bm p \cdot \bm u_\sigma$. Comparing with
+    the formula above, we can obtain $\bm u_\sigma$
+    \[
+      \bm u_\sigma = -\frac{1}{m^*} \mathbf A_N
+      - \sigma \frac{1}{m_s^*} \mathbf W.
+    \]
+    Then, comparing coefficients yields the desired relations
+    \[
+      \frac{m}{m^*} = \frac{1}{1 + F_1^s}, \quad
+      \frac{m}{m_s^*} = \frac{1}{1 + F_1^a}.
+    \]
+    \end{proof}
+    \item \begin{proof} When the system is magnetized
+    ($M = n_\uparrow - n_\downarrow \neq 0$), the Fermi surfaces for spin-up and
+    spin-down are different. The drift velocities become
+    \[
+      \bm u_\uparrow = \bm u + \bm u_s, \quad
+      \bm u_\downarrow = \bm u - \bm u_s,
+    \]
+    where $\bm u$ is the charge drift velocity and $\bm u_s$ is the spin drift
+    velocity. The energy shifts are
+    \[
+      \delta\epsilon_{\bm p\uparrow}
+    = -\frac{\bm p}{m^*} \cdot \mathbf A_N
+    - \frac{\bm p}{m_s^*} \cdot \mathbf W, \quad
+      \delta\epsilon_{\bm p\downarrow}
+    = -\frac{\bm p}{m^*} \cdot \mathbf A_N
+    + \frac{\bm p}{m_s^*} \cdot \mathbf W.
+    \]
+    The effective masses for each spin species are then:
+    \[
+      \frac{1}{m_\sigma^*}
+    = \frac{1}{m} \ab[ \frac{1}{1 + F_1^s} + \sigma \frac{M}{1 + F_1^a}],
+      \qq{for $\sigma = \uparrow, \downarrow$,}
+    \]
+    where $ M $ is the magnetization.
+    \end{proof}
   \end{enumext}
 \end{solution}
